@@ -1,1 +1,13 @@
 This site contails files, code, and data for Dr. Christianson's ECOL 5200 Course
+
+A map of the course's distance sampling efforts can be found here: https://davechristianson.github.io/ECOL5200/
+
+This map was created from several sources.
+
+Basemap is  Map data copyrighted OpenStreetMap contributors and available from https://www.openstreetmap.org
+
+From the University of Wyoming Wyoming Geographic Information Science Center's Wyoming GeoSpatialHub  https://data.geospatialhub.org/
+transect lines and road density within 2km of line segments: from Census Bureau road data via WY https://services.wygisc.org/HostGIS/rest/services/GeoHub/CensusAllRoads/MapServer
+and surface land use dervived from BLM - Surface Management Agency layer: https://services.wygisc.org/hostgis/rest/services/GeoHub/BLMSurfaceManagementAgency/MapServer
+
+Detections are entered by students in  a Google Sheet.https://docs.google.com/spreadsheets/d/1_TOxrZ5MtqTASe3ZSz2RnX2sM2wivyXYvDPUEKaim6g/edit?usp=share_link
