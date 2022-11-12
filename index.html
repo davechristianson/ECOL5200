@@ -8,12 +8,11 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/leaflet-search.css">
         <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
         #map {
-            width: 1942px;
-            height: 1334px;
+            width: 2294px;
+            height: 1673px;
         }
         </style>
         <title></title>
@@ -31,10 +30,10 @@
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
         <script src="js/leaflet-measure.js"></script>
-        <script src="js/leaflet-search.js"></script>
         <script src="data/ecol5200distancewyohub_sa_landuse_1.js"></script>
         <script src="data/sites_2.js"></script>
-        <script src="data/Detectionsfall22_3.js"></script>
+        <script src="data/ecol5200distancedetections_fall22_3.js"></script>
+        <script src="data/line_of_sight_4.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -43,7 +42,7 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:23, minZoom:1
-        }).fitBounds([[41.07536041989666,-106.11790370959315],[41.58007094116263,-105.13901023242201]]);
+        }).fitBounds([[40.85294055847208,-106.333682109767],[41.54989611319008,-105.06310201057802]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -274,7 +273,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '10':
@@ -287,7 +286,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '11':
@@ -300,7 +299,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '12':
@@ -313,7 +312,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '13':
@@ -326,7 +325,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '14':
@@ -339,7 +338,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '15':
@@ -352,7 +351,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '16':
@@ -365,7 +364,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '17':
@@ -378,7 +377,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '18':
@@ -391,7 +390,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '19':
@@ -404,7 +403,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '2':
@@ -417,7 +416,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '20':
@@ -430,7 +429,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '21':
@@ -443,7 +442,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '22':
@@ -456,7 +455,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '23':
@@ -469,7 +468,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '24':
@@ -482,7 +481,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '25':
@@ -495,7 +494,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '26':
@@ -508,7 +507,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '27':
@@ -521,7 +520,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '28':
@@ -534,7 +533,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '29':
@@ -547,7 +546,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '3':
@@ -560,7 +559,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '30':
@@ -573,7 +572,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '31':
@@ -586,7 +585,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '32':
@@ -599,7 +598,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '33':
@@ -612,7 +611,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '34':
@@ -625,7 +624,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '35':
@@ -638,7 +637,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '36':
@@ -651,7 +650,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '37':
@@ -664,7 +663,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '38':
@@ -677,7 +676,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '39':
@@ -690,7 +689,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '4':
@@ -703,7 +702,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '40':
@@ -716,7 +715,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '41':
@@ -729,7 +728,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '42':
@@ -742,7 +741,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '43':
@@ -755,7 +754,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '44':
@@ -768,7 +767,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '45':
@@ -781,7 +780,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '46':
@@ -794,7 +793,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '47':
@@ -807,7 +806,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '48':
@@ -820,7 +819,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '49':
@@ -833,7 +832,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '5':
@@ -846,7 +845,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '50':
@@ -859,7 +858,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '51':
@@ -872,7 +871,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '52':
@@ -885,7 +884,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '53':
@@ -898,7 +897,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '54':
@@ -911,7 +910,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '55':
@@ -924,7 +923,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '56':
@@ -937,7 +936,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '57':
@@ -950,7 +949,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '58':
@@ -963,7 +962,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '59':
@@ -976,7 +975,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '6':
@@ -989,7 +988,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '60':
@@ -1002,7 +1001,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '61':
@@ -1015,7 +1014,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '62':
@@ -1028,7 +1027,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '63':
@@ -1041,7 +1040,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '64':
@@ -1054,7 +1053,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '65':
@@ -1067,7 +1066,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '66':
@@ -1080,7 +1079,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '67':
@@ -1093,7 +1092,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '68':
@@ -1106,7 +1105,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '69':
@@ -1119,7 +1118,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '7':
@@ -1132,7 +1131,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '70':
@@ -1145,7 +1144,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '71':
@@ -1158,7 +1157,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '72':
@@ -1171,7 +1170,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '73':
@@ -1184,7 +1183,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '74':
@@ -1197,7 +1196,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '75':
@@ -1210,7 +1209,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '76':
@@ -1223,7 +1222,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '77':
@@ -1236,7 +1235,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '78':
@@ -1249,7 +1248,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '79':
@@ -1262,7 +1261,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '8':
@@ -1275,7 +1274,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '80':
@@ -1288,7 +1287,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '81':
@@ -1301,7 +1300,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '82':
@@ -1314,7 +1313,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '83':
@@ -1327,7 +1326,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '84':
@@ -1340,7 +1339,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '85':
@@ -1353,7 +1352,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '86':
@@ -1366,7 +1365,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '87':
@@ -1379,7 +1378,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '88':
@@ -1392,7 +1391,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '89':
@@ -1405,7 +1404,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '9':
@@ -1418,7 +1417,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '90':
@@ -1431,7 +1430,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '91':
@@ -1444,7 +1443,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '92':
@@ -1457,7 +1456,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '93':
@@ -1470,7 +1469,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '94':
@@ -1483,7 +1482,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '95':
@@ -1496,7 +1495,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '96':
@@ -1509,7 +1508,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '97':
@@ -1522,7 +1521,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case '98':
@@ -1535,7 +1534,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 default:
@@ -1548,7 +1547,7 @@
                 lineJoin: 'bevel',
                 weight: 6.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
             }
@@ -1558,7 +1557,7 @@
         map.getPane('pane_sites_2').style['mix-blend-mode'] = 'normal';
         var layer_sites_2 = new L.geoJson(json_sites_2, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_sites_2',
             layerName: 'layer_sites_2',
             pane: 'pane_sites_2',
@@ -1567,7 +1566,246 @@
         });
         bounds_group.addLayer(layer_sites_2);
         map.addLayer(layer_sites_2);
-        function pop_Detectionsfall22_3(feature, layer) {
+        function pop_ecol5200distancedetections_fall22_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Transect ID</th>\
+                        <td>' + (feature.properties['Transect ID'] !== null ? autolinker.link(feature.properties['Transect ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Primary Observer initials</th>\
+                        <td>' + (feature.properties['Primary Observer initials'] !== null ? autolinker.link(feature.properties['Primary Observer initials'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Species</th>\
+                        <td>' + (feature.properties['Species'] !== null ? autolinker.link(feature.properties['Species'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Detector Initials</th>\
+                        <td>' + (feature.properties['Detector Initials'] !== null ? autolinker.link(feature.properties['Detector Initials'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ecol5200distancedetections_fall22_3_0(feature) {
+            switch(String(feature.properties['Species'])) {
+                case 'coyote':
+                    return {
+                pane: 'pane_ecol5200distancedetections_fall22_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(229,77,75,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'end':
+                    return {
+                pane: 'pane_ecol5200distancedetections_fall22_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(142,155,233,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'End':
+                    return {
+                pane: 'pane_ecol5200distancedetections_fall22_3',
+                shape: 'x',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(100,217,123,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'END':
+                    return {
+                pane: 'pane_ecol5200distancedetections_fall22_3',
+                shape: 'x',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(93,15,219,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'mule deer':
+                    return {
+                pane: 'pane_ecol5200distancedetections_fall22_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(121,230,62,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'pronghorn':
+                    return {
+                pane: 'pane_ecol5200distancedetections_fall22_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(220,169,103,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Pronghorn':
+                    return {
+                pane: 'pane_ecol5200distancedetections_fall22_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(222,235,103,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'start':
+                    return {
+                pane: 'pane_ecol5200distancedetections_fall22_3',
+                shape: 'x',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(236,117,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Start':
+                    return {
+                pane: 'pane_ecol5200distancedetections_fall22_3',
+                shape: 'x',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(15,208,156,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'START':
+                    return {
+                pane: 'pane_ecol5200distancedetections_fall22_3',
+                shape: 'x',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(210,64,220,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_ecol5200distancedetections_fall22_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(135,203,232,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_ecol5200distancedetections_fall22_3');
+        map.getPane('pane_ecol5200distancedetections_fall22_3').style.zIndex = 403;
+        map.getPane('pane_ecol5200distancedetections_fall22_3').style['mix-blend-mode'] = 'normal';
+        var layer_ecol5200distancedetections_fall22_3 = new L.geoJson(json_ecol5200distancedetections_fall22_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ecol5200distancedetections_fall22_3',
+            layerName: 'layer_ecol5200distancedetections_fall22_3',
+            pane: 'pane_ecol5200distancedetections_fall22_3',
+            onEachFeature: pop_ecol5200distancedetections_fall22_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_ecol5200distancedetections_fall22_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_ecol5200distancedetections_fall22_3);
+        map.addLayer(layer_ecol5200distancedetections_fall22_3);
+        function pop_line_of_sight_4(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if (typeof layer.closePopup == 'function') {
@@ -1586,227 +1824,51 @@
                         <td>' + (feature.properties['Species'] !== null ? autolinker.link(feature.properties['Species'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Detector Initials</th>\
-                        <td>' + (feature.properties['Detector Initials'] !== null ? autolinker.link(feature.properties['Detector Initials'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Detector.Initials</th>\
+                        <td>' + (feature.properties['Detector.Initials'] !== null ? autolinker.link(feature.properties['Detector.Initials'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Total Group Size</th>\
-                        <td>' + (feature.properties['Total Group Size'] !== null ? autolinker.link(feature.properties['Total Group Size'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Total.Group.Size</th>\
+                        <td>' + (feature.properties['Total.Group.Size'] !== null ? autolinker.link(feature.properties['Total.Group.Size'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">dist_to_transect</th>\
+                        <td>' + (feature.properties['dist_to_transect'] !== null ? autolinker.link(feature.properties['dist_to_transect'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Detectionsfall22_3_0(feature) {
-            switch(String(feature.properties['Species'])) {
-                case 'coyote':
-                    return {
-                pane: 'pane_Detectionsfall22_3',
-                radius: 8.0,
-                opacity: 1,
-                color: 'rgba(50,87,128,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 2.0,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(72,123,182,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'end':
-                    return {
-                pane: 'pane_Detectionsfall22_3',
-                radius: 0.0,
+        function style_line_of_sight_4_0() {
+            return {
+                pane: 'pane_line_of_sight_4',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(255,0,0,1.0)',
+                dashArray: '1,5',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
                 interactive: true,
-            }
-                    break;
-                case 'End':
-                    return {
-                pane: 'pane_Detectionsfall22_3',
-                radius: 0.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(151,25,224,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'END':
-                    return {
-                pane: 'pane_Detectionsfall22_3',
-                radius: 0.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(222,26,78,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'mule deer':
-                    return {
-                pane: 'pane_Detectionsfall22_3',
-                radius: 8.0,
-                opacity: 1,
-                color: 'rgba(255,255,255,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 2.0,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(0,0,0,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'pronghorn':
-                    return {
-                pane: 'pane_Detectionsfall22_3',
-                radius: 8.0,
-                opacity: 1,
-                color: 'rgba(179,93,142,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 2.0,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(242,125,191,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'Pronghorn':
-                    return {
-                pane: 'pane_Detectionsfall22_3',
-                radius: 8.0,
-                opacity: 1,
-                color: 'rgba(179,93,142,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 2.0,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(242,125,191,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'start':
-                    return {
-                pane: 'pane_Detectionsfall22_3',
-                radius: 0.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(233,206,87,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'Start':
-                    return {
-                pane: 'pane_Detectionsfall22_3',
-                radius: 0.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(79,202,134,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'START':
-                    return {
-                pane: 'pane_Detectionsfall22_3',
-                radius: 0.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(129,219,119,1.0)',
-                interactive: true,
-            }
-                    break;
-                default:
-                    return {
-                pane: 'pane_Detectionsfall22_3',
-                radius: 0.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(81,214,214,1.0)',
-                interactive: true,
-            }
-                    break;
             }
         }
-        map.createPane('pane_Detectionsfall22_3');
-        map.getPane('pane_Detectionsfall22_3').style.zIndex = 403;
-        map.getPane('pane_Detectionsfall22_3').style['mix-blend-mode'] = 'normal';
-        var layer_Detectionsfall22_3 = new L.geoJson(json_Detectionsfall22_3, {
+        map.createPane('pane_line_of_sight_4');
+        map.getPane('pane_line_of_sight_4').style.zIndex = 404;
+        map.getPane('pane_line_of_sight_4').style['mix-blend-mode'] = 'normal';
+        var layer_line_of_sight_4 = new L.geoJson(json_line_of_sight_4, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Detectionsfall22_3',
-            layerName: 'layer_Detectionsfall22_3',
-            pane: 'pane_Detectionsfall22_3',
-            onEachFeature: pop_Detectionsfall22_3,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_Detectionsfall22_3_0(feature));
-            },
+            dataVar: 'json_line_of_sight_4',
+            layerName: 'layer_line_of_sight_4',
+            pane: 'pane_line_of_sight_4',
+            onEachFeature: pop_line_of_sight_4,
+            style: style_line_of_sight_4_0,
         });
-        bounds_group.addLayer(layer_Detectionsfall22_3);
-        map.addLayer(layer_Detectionsfall22_3);
+        bounds_group.addLayer(layer_line_of_sight_4);
+        map.addLayer(layer_line_of_sight_4);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'Detections - fall22<br /><table><tr><td style="text-align: center;"><img src="legend/Detectionsfall22_3_coyote0.png" /></td><td>coyote</td></tr><tr><td style="text-align: center;"><img src="legend/Detectionsfall22_3_end1.png" /></td><td>end</td></tr><tr><td style="text-align: center;"><img src="legend/Detectionsfall22_3_End2.png" /></td><td>End</td></tr><tr><td style="text-align: center;"><img src="legend/Detectionsfall22_3_END3.png" /></td><td>END</td></tr><tr><td style="text-align: center;"><img src="legend/Detectionsfall22_3_muledeer4.png" /></td><td>mule deer</td></tr><tr><td style="text-align: center;"><img src="legend/Detectionsfall22_3_pronghorn5.png" /></td><td>pronghorn</td></tr><tr><td style="text-align: center;"><img src="legend/Detectionsfall22_3_Pronghorn6.png" /></td><td>Pronghorn</td></tr><tr><td style="text-align: center;"><img src="legend/Detectionsfall22_3_start7.png" /></td><td>start</td></tr><tr><td style="text-align: center;"><img src="legend/Detectionsfall22_3_Start8.png" /></td><td>Start</td></tr><tr><td style="text-align: center;"><img src="legend/Detectionsfall22_3_START9.png" /></td><td>START</td></tr><tr><td style="text-align: center;"><img src="legend/Detectionsfall22_3_10.png" /></td><td></td></tr></table>': layer_Detectionsfall22_3,'sites<br /><table><tr><td style="text-align: center;"><img src="legend/sites_2_10.png" /></td><td>1</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_101.png" /></td><td>10</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_112.png" /></td><td>11</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_123.png" /></td><td>12</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_134.png" /></td><td>13</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_145.png" /></td><td>14</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_156.png" /></td><td>15</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_167.png" /></td><td>16</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_178.png" /></td><td>17</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_189.png" /></td><td>18</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_1910.png" /></td><td>19</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_211.png" /></td><td>2</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2012.png" /></td><td>20</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2113.png" /></td><td>21</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2214.png" /></td><td>22</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2315.png" /></td><td>23</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2416.png" /></td><td>24</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2517.png" /></td><td>25</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2618.png" /></td><td>26</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2719.png" /></td><td>27</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2820.png" /></td><td>28</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2921.png" /></td><td>29</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_322.png" /></td><td>3</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3023.png" /></td><td>30</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3124.png" /></td><td>31</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3225.png" /></td><td>32</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3326.png" /></td><td>33</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3427.png" /></td><td>34</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3528.png" /></td><td>35</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3629.png" /></td><td>36</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3730.png" /></td><td>37</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3831.png" /></td><td>38</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3932.png" /></td><td>39</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_433.png" /></td><td>4</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4034.png" /></td><td>40</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4135.png" /></td><td>41</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4236.png" /></td><td>42</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4337.png" /></td><td>43</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4438.png" /></td><td>44</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4539.png" /></td><td>45</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4640.png" /></td><td>46</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4741.png" /></td><td>47</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4842.png" /></td><td>48</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4943.png" /></td><td>49</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_544.png" /></td><td>5</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5045.png" /></td><td>50</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5146.png" /></td><td>51</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5247.png" /></td><td>52</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5348.png" /></td><td>53</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5449.png" /></td><td>54</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5550.png" /></td><td>55</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5651.png" /></td><td>56</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5752.png" /></td><td>57</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5853.png" /></td><td>58</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5954.png" /></td><td>59</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_655.png" /></td><td>6</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6056.png" /></td><td>60</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6157.png" /></td><td>61</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6258.png" /></td><td>62</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6359.png" /></td><td>63</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6460.png" /></td><td>64</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6561.png" /></td><td>65</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6662.png" /></td><td>66</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6763.png" /></td><td>67</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6864.png" /></td><td>68</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6965.png" /></td><td>69</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_766.png" /></td><td>7</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7067.png" /></td><td>70</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7168.png" /></td><td>71</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7269.png" /></td><td>72</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7370.png" /></td><td>73</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7471.png" /></td><td>74</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7572.png" /></td><td>75</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7673.png" /></td><td>76</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7774.png" /></td><td>77</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7875.png" /></td><td>78</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7976.png" /></td><td>79</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_877.png" /></td><td>8</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8078.png" /></td><td>80</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8179.png" /></td><td>81</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8280.png" /></td><td>82</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8381.png" /></td><td>83</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8482.png" /></td><td>84</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8583.png" /></td><td>85</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8684.png" /></td><td>86</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8785.png" /></td><td>87</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8886.png" /></td><td>88</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8987.png" /></td><td>89</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_988.png" /></td><td>9</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9089.png" /></td><td>90</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9190.png" /></td><td>91</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9291.png" /></td><td>92</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9392.png" /></td><td>93</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9493.png" /></td><td>94</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9594.png" /></td><td>95</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9695.png" /></td><td>96</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9796.png" /></td><td>97</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9897.png" /></td><td>98</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_98.png" /></td><td></td></tr></table>': layer_sites_2,'ecol5200distance — wyohub_sa_landuse<br /><table><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_BureauofLandManagement0.png" /></td><td>Bureau of Land Management</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_ForestService1.png" /></td><td>Forest Service</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_Other2.png" /></td><td>Other</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_Private3.png" /></td><td>Private</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_State4.png" /></td><td>State</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_USFishandWildlifeService5.png" /></td><td>US Fish and Wildlife Service</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_Water6.png" /></td><td>Water</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_7.png" /></td><td></td></tr></table>': layer_ecol5200distancewyohub_sa_landuse_1,"OpenStreetMap": layer_OpenStreetMap_0,}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/line_of_sight_4.png" /> line_of_sight': layer_line_of_sight_4,'ecol5200distance — detections_fall22<br /><table><tr><td style="text-align: center;"><img src="legend/ecol5200distancedetections_fall22_3_coyote0.png" /></td><td>coyote</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancedetections_fall22_3_end1.png" /></td><td>end</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancedetections_fall22_3_End2.png" /></td><td>End</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancedetections_fall22_3_END3.png" /></td><td>END</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancedetections_fall22_3_muledeer4.png" /></td><td>mule deer</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancedetections_fall22_3_pronghorn5.png" /></td><td>pronghorn</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancedetections_fall22_3_Pronghorn6.png" /></td><td>Pronghorn</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancedetections_fall22_3_start7.png" /></td><td>start</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancedetections_fall22_3_Start8.png" /></td><td>Start</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancedetections_fall22_3_START9.png" /></td><td>START</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancedetections_fall22_3_10.png" /></td><td></td></tr></table>': layer_ecol5200distancedetections_fall22_3,'sites<br /><table><tr><td style="text-align: center;"><img src="legend/sites_2_10.png" /></td><td>1</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_101.png" /></td><td>10</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_112.png" /></td><td>11</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_123.png" /></td><td>12</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_134.png" /></td><td>13</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_145.png" /></td><td>14</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_156.png" /></td><td>15</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_167.png" /></td><td>16</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_178.png" /></td><td>17</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_189.png" /></td><td>18</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_1910.png" /></td><td>19</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_211.png" /></td><td>2</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2012.png" /></td><td>20</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2113.png" /></td><td>21</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2214.png" /></td><td>22</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2315.png" /></td><td>23</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2416.png" /></td><td>24</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2517.png" /></td><td>25</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2618.png" /></td><td>26</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2719.png" /></td><td>27</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2820.png" /></td><td>28</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2921.png" /></td><td>29</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_322.png" /></td><td>3</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3023.png" /></td><td>30</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3124.png" /></td><td>31</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3225.png" /></td><td>32</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3326.png" /></td><td>33</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3427.png" /></td><td>34</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3528.png" /></td><td>35</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3629.png" /></td><td>36</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3730.png" /></td><td>37</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3831.png" /></td><td>38</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3932.png" /></td><td>39</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_433.png" /></td><td>4</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4034.png" /></td><td>40</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4135.png" /></td><td>41</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4236.png" /></td><td>42</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4337.png" /></td><td>43</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4438.png" /></td><td>44</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4539.png" /></td><td>45</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4640.png" /></td><td>46</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4741.png" /></td><td>47</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4842.png" /></td><td>48</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4943.png" /></td><td>49</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_544.png" /></td><td>5</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5045.png" /></td><td>50</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5146.png" /></td><td>51</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5247.png" /></td><td>52</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5348.png" /></td><td>53</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5449.png" /></td><td>54</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5550.png" /></td><td>55</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5651.png" /></td><td>56</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5752.png" /></td><td>57</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5853.png" /></td><td>58</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5954.png" /></td><td>59</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_655.png" /></td><td>6</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6056.png" /></td><td>60</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6157.png" /></td><td>61</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6258.png" /></td><td>62</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6359.png" /></td><td>63</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6460.png" /></td><td>64</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6561.png" /></td><td>65</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6662.png" /></td><td>66</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6763.png" /></td><td>67</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6864.png" /></td><td>68</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6965.png" /></td><td>69</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_766.png" /></td><td>7</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7067.png" /></td><td>70</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7168.png" /></td><td>71</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7269.png" /></td><td>72</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7370.png" /></td><td>73</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7471.png" /></td><td>74</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7572.png" /></td><td>75</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7673.png" /></td><td>76</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7774.png" /></td><td>77</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7875.png" /></td><td>78</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7976.png" /></td><td>79</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_877.png" /></td><td>8</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8078.png" /></td><td>80</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8179.png" /></td><td>81</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8280.png" /></td><td>82</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8381.png" /></td><td>83</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8482.png" /></td><td>84</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8583.png" /></td><td>85</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8684.png" /></td><td>86</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8785.png" /></td><td>87</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8886.png" /></td><td>88</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8987.png" /></td><td>89</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_988.png" /></td><td>9</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9089.png" /></td><td>90</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9190.png" /></td><td>91</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9291.png" /></td><td>92</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9392.png" /></td><td>93</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9493.png" /></td><td>94</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9594.png" /></td><td>95</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9695.png" /></td><td>96</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9796.png" /></td><td>97</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9897.png" /></td><td>98</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_98.png" /></td><td></td></tr></table>': layer_sites_2,'ecol5200distance — wyohub_sa_landuse<br /><table><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_BureauofLandManagement0.png" /></td><td>Bureau of Land Management</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_ForestService1.png" /></td><td>Forest Service</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_Other2.png" /></td><td>Other</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_Private3.png" /></td><td>Private</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_State4.png" /></td><td>State</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_USFishandWildlifeService5.png" /></td><td>US Fish and Wildlife Service</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_Water6.png" /></td><td>Water</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_7.png" /></td><td></td></tr></table>': layer_ecol5200distancewyohub_sa_landuse_1,"OpenStreetMap": layer_OpenStreetMap_0,}).addTo(map);
         setBounds();
-        map.addControl(new L.Control.Search({
-            layer: layer_Detectionsfall22_3,
-            initial: false,
-            hideMarkerOnCollapse: true,
-            propertyName: 'Detector Initials'}));
-        document.getElementsByClassName('search-button')[0].className +=
-         ' fa fa-binoculars';
         </script>
     </body>
 </html>
