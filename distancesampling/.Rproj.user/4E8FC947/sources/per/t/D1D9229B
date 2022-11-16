@@ -1,0 +1,26 @@
+{
+    "id": "D1D9229B",
+    "path": "D:/Dropbox/projectdave/wyoming/teachingUW/ECOL5200/fall2022/distancesampling/data_prep.R",
+    "project_path": "data_prep.R",
+    "type": "r_source",
+    "hash": "1637268624",
+    "contents": "",
+    "dirty": false,
+    "created": 1668203312461.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "71,0",
+        "scrollLine": "50"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1668622496,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1668622496863,
+    "read_only": false,
+    "read_only_alternatives": []
+}

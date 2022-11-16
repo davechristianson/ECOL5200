@@ -1,0 +1,130 @@
+
+## start all scripts with emptying the environment
+rm(list=ls())
+
+library(googlesheets4)
+library(sp)
+library(sf)
+library(geosphere)
+library(dplyr)
+
+# first, we will clean up the detections data from the Google worksheet and extract the information we need for each observation.
+###########################################################
+# detections
+
+# here is a backup line of code if trouble connecting to Google sheet.
+#detections<-read.csv("Detections - fall22.csv",skip=1)
+
+# read data from Google sheet (select '1:Yes' when prompted and sign into googl and agree to give tidyverse access)
+detections<-read_sheet("https://docs.google.com/spreadsheets/d/1_TOxrZ5MtqTASe3ZSz2RnX2sM2wivyXYvDPUEKaim6g/edit#gid=0",skip=1)
+detections<-as.data.frame(detections)
+
+
+################################################################
+# some longitudes were not entered as negative, but should be.
+detections$`Detection Longitude`<- ((detections$`Detection Longitude`>0)*-1*detections$`Detection Longitude`) + ((detections$`Detection Longitude`<0)*1*detections$`Detection Longitude`) 
+
+
+
+
+#detections<-st_cast(st_read("ecol5200distance.gpkg",layer="detections_fall22"),to="POINT")
+
+#detections$Detection.Longitude<- detections$Detection.Longitude*-1
+
+# now the data should be ready to be convert to an sf (spatial) object in R
+detections<-st_as_sf(detections,coords=c("Detection Longitude","Detection Latitude"),crs = st_crs(4326))
+
+
+# some distances are not numbers - they are surrounded by text
+detections$`Detection Distance`<-as.numeric(gsub(".*?([0-9]+).*", "\\1",  detections$`Detection Distance`))
+
+
+# now use destPoint() function to get the lat and long of the detected animal groups (not the observer)
+# destPoint() uses observer's lat and long as well as the bearing and distance to project the animal groups location
+df_sp <- as_Spatial(detections)
+destPoint(as.matrix(coordinates(df_sp))[!is.na(as.numeric(df_sp$Detection.Distance)),],d=as.numeric(df_sp$Detection.Distance)[!is.na(as.numeric(df_sp$Detection.Distance))], b=as.numeric(df_sp$Detection.Angle)[!is.na(as.numeric(df_sp$Detection.Distance))]) %>%
+  as.data.frame() %>%
+  st_as_sf(coords = c('lon', 'lat')) -> df_sf
+st_crs(df_sf)<-st_crs(4326)
+
+# now create a new spatial object that contains only groups and the groups' lat and long
+groups<-detections[!is.na(as.numeric(df_sp$Detection.Distance)),] # only detections (remove START and END)
+groups[,c("obs_longitude","obs_latitude")]<-st_coordinates(groups) # save the observer lat and long as data columns
+st_crs(groups)<-st_crs(4326)
+st_geometry(groups)<-st_geometry(df_sf) # new coordinates from destPoint() above
+
+# two pieces of information are needed for hierarchical modelling of the data - shortest distance to transect line and ID of the nearest transect line
+sites<-st_cast(st_read("ecol5200distance.gpkg",layer="sites"),to="LINESTRING") # read in the vector layer of transects from the geopackage.
+sites$site_id<-row.names(sites) # created a site_id column to identify each site as an integer
+groups$dist_to_transect<-apply(st_distance(groups,st_transform(sites,crs=st_crs(groups)), by_element=F),1,min) # measure distance from group to nearest transect
+groups$site_id<-apply(st_distance(groups,st_transform(sites,crs=st_crs(groups)), by_element=F),1,which.min)    # identify the transect that is closest to each site
+
+
+
+
+#  make a neat (but unnecessary) vector of lines from the observer point to the detected group just for display purposes
+lineofsight<-st_sfc(mapply(function(a,b){st_cast(st_union(a,b),"LINESTRING")}, groups$geometry, detections$geometry[!is.na(as.numeric(df_sp$Detection.Distance))], SIMPLIFY=FALSE))
+st_crs(lineofsight)<-st_crs(4326)
+lineofsight<-st_sf(lineofsight)
+lineofsight[,c(names(st_drop_geometry(groups)))]<-as.matrix(st_drop_geometry(groups))
+lineofsight$dist_to_transect<-apply(st_distance(groups,st_transform(sites,crs=st_crs(groups)), by_element=F),1,min)
+
+
+st_write(lineofsight,dsn="ecol5200distance.gpkg",layer="line_of_sight",append=F)
+st_write(groups,dsn="ecol5200distance.gpkg",layer="groups",append=F)
+
+
+
+
+
+
+
+
+
+
+
+
+
+##################################
+#Site Covariates
+## read in the sites data and add a new site_id
+sites<-st_cast(st_read("ecol5200distance.gpkg",layer="sites"),to="LINESTRING")
+sites$site_id<-row.names(sites)
+
+# read in all roads vector file
+allroads<-st_cast(st_read("ecol5200distance.gpkg",layer="wyohub_sa_roads"),to="MULTILINESTRING")
+
+# buffer all site transect segmetns by 2000 meters
+sites_buffer<-st_buffer(sites,dist=2000)
+
+# read in public lands vector file
+lands<-st_make_valid(st_cast(st_read("ecol5200distance.gpkg",layer="wyohub_sa_landuse"),to="MULTIPOLYGON"))
+
+
+# get new road lines that are labelled by the site buffer polygon they are in
+inters<-st_intersection(allroads,sites_buffer)
+
+# calculate the lenghth of road lines in each site buffer polygon
+road_lengths<-tapply(st_length(inters), inters$site_id,sum)
+ 
+# convert road lengths to km's and divide by the area of the site buffered polygon, and append to vector
+sites$road_kmspersqkm[order(sites_buffer$site_id)]<-(road_lengths/1000)/(as.numeric(st_area(st_transform(sites_buffer,crs=st_crs(lands))[sort(sites_buffer$site_id),]))/(1000*1000))
+sites_buffer$road_kmspersqkm[order(sites_buffer$site_id)]<-(road_lengths/1000)/(as.numeric(st_area(st_transform(sites_buffer,crs=st_crs(lands))[sort(sites_buffer$site_id),]))/(1000*1000))
+
+
+# get new land use polygons that are labelled by the site buffer polygon they are in 
+land_inters<-st_intersection(lands,st_transform(sites_buffer,crs=st_crs(lands)))
+
+# calculate the total area of public land in each site buffered polygon
+land_areas<-tapply(st_area(land_inters[!land_inters$Name %in% c("Water","Private"),]), land_inters$site_id[!land_inters$Name %in% c("Water","Private")],sum)
+
+# convert areas to square kms and divide by the area of the site buffer polygon to get proportion of site covered in public land, append to vector
+sites$prop_publand[order(sites_buffer$site_id)]<-(land_areas/(1000*1000)) /(as.numeric(st_area(st_transform(sites_buffer,crs=st_crs(lands))[order(sites_buffer$site_id),]))/(1000*1000))
+sites_buffer$prop_publand[order(sites_buffer$site_id)]<-(land_areas/(1000*1000)) /(as.numeric(st_area(st_transform(sites_buffer,crs=st_crs(lands))[order(sites_buffer$site_id),]))/(1000*1000))
+
+st_write(sites,dsn="ecol5200distance.gpkg",layer="sites",append=F)
+st_write(sites_buffer,dsn="ecol5200distance.gpkg",layer="sites_buffer",append=F)
+
+
+plot(st_geometry(st_transform(sites,crs=st_crs(groups))))
+plot(st_geometry(groups),add=T)
