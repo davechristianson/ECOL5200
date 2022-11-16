@@ -1,3 +1,5 @@
+
+library(sf)
 ##################################
 #Site Covariates
 ## read in the sites data and add a new site_id

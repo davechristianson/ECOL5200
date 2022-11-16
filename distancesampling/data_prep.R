@@ -62,6 +62,7 @@ lineofsight<-st_sf(lineofsight)
 lineofsight[,c(names(st_drop_geometry(groups)))]<-as.matrix(st_drop_geometry(groups))
 lineofsight$dist_to_transect<-apply(st_distance(groups,st_transform(sites,crs=st_crs(groups)), by_element=F),1,min)
 
+st_write(detections,dsn="ecol5200distance.gpkg",layer="detections",append=F)
 st_write(lineofsight,dsn="ecol5200distance.gpkg",layer="line_of_sight",append=F)
 st_write(groups,dsn="ecol5200distance.gpkg",layer="groups",append=F)
 
