@@ -3,7 +3,7 @@
     "path": "~/GitHub/ECOL5200/distancesampling/data_prep.R",
     "project_path": "data_prep.R",
     "type": "r_source",
-    "hash": "2410771434",
+    "hash": "366190078",
     "contents": "",
     "dirty": false,
     "created": 1668203312461.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "68,0",
-        "scrollLine": "34"
+        "cursorPosition": "83,33",
+        "scrollLine": "59"
     },
     "folds": "",
-    "lastKnownWriteTime": 1668638866,
+    "lastKnownWriteTime": 1669594223,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1668638866768,
+    "last_content_update": 1669594223535,
     "read_only": false,
     "read_only_alternatives": []
 }

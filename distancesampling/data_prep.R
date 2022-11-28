@@ -101,5 +101,6 @@ lineofsight$dist_to_transect<-apply(st_distance(groups,st_transform(sites,crs=st
 st_write(detections,dsn="ecol5200distance.gpkg",layer="detections",append=F)
 st_write(lineofsight,dsn="ecol5200distance.gpkg",layer="line_of_sight",append=F)
 st_write(groups,dsn="ecol5200distance.gpkg",layer="groups",append=F)
+st_write(sites,dsn="ecol5200distance.gpkg",layer="sites",append=F)
 
 

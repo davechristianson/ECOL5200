@@ -1,0 +1,43 @@
+
+model {
+# Prior distributions
+beta0 ~ dnorm(0, 0.01) # Intercept for log(lambda)
+mean.lam <- exp(beta0)
+beta1 ~ dnorm(0, 0.01) # Coefficient of lambda on roads
+beta2 ~ dnorm(0,0.01)
+phi ~ dunif(0,1) # Probability of availability
+sigma ~ dunif(0.01,500) # Distance function parameter
+
+# Detection probs for each distance interval and related things
+  for(b in 1:nD){
+    log(g[b]) <- -midpt[b]*midpt[b]/(2*sigma*sigma) # half-normal
+    f[b] <- (2*midpt[b]*delta)/(B*B) # radial density function
+    cellprobs[b] <- g[b]*f[b]
+    cellprobs.cond[b] <- cellprobs[b]/sum(cellprobs[1:nD])
+  }
+  cellprobs[nD+1] <- 1-sum(cellprobs[1:nD])
+  for (s in 1:nsites) {
+    for (k in 1:nreps[s]) {
+      pdet[s,k] <- sum(cellprobs[1:nD]) # Distance class probabilities
+      pmarg[s,k] <- pdet[s,k]*phi # Marginal probability
+    # Model part 4: distance class frequencies
+      y3d[s,1:nD,k] ~ dmulti(cellprobs.cond[1:nD], nobs[s,k])
+    # Model part 3: total number of detections:
+      nobs[s,k] ~ dbin(pmarg[s,k], M[s])
+      # nobs[s,k] ~ dbin(pdet[s,k], Navail[s,k]) # Alternative formulation
+    } # End observed k loop
+    for (k in 1:K){
+    # Model part 2: Availability. Not used in this model but simulated.
+      Navail[s,k] ~ dbin(phi, M[s])
+    }
+  # Model part 1: Abundance model
+  M[s] ~ dpois(lambda[s])
+  log(lambda[s]) <- beta0 + beta1*roads[s] +beta2*land[s]
+  } # End s loop
+# Derived quantities
+  Mtot <- sum(M[])
+  for(k in 1:K){
+    Ntot[k] <- sum(Navail[,k])
+    Dtot[k] <- Ntot[k]/(2*(B/1000)*434.842)
+  }
+} # End model
