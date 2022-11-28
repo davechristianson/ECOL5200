@@ -3,15 +3,17 @@ model {
 # Prior distributions
 beta0 ~ dnorm(0, 0.01) # Intercept for log(lambda)
 mean.lam <- exp(beta0)
-beta1 ~ dnorm(0, 0.01) # Coefficient of lambda on roads
-beta2 ~ dnorm(0,0.01)
+beta1 ~ dnorm(0, 0.01) # Coefficient of roads on lambda
+beta2 ~ dnorm(0,0.01) # Coefficient of public land
 phi ~ dunif(0,1) # Probability of availability
-sigma ~ dunif(0.01,500) # Distance function parameter
-
+sigma ~ dunif(1,600) # Distance function parameter
+gamma0 ~ dnorm(0,0.01)
+gamma1 ~ dnorm(0,0.01)
+gamma2 ~ dnorm(0,0.01)
 # Detection probs for each distance interval and related things
   for(b in 1:nD){
     log(g[b]) <- -midpt[b]*midpt[b]/(2*sigma*sigma) # half-normal
-    f[b] <- (2*midpt[b]*delta)/(B*B) # radial density function
+    f[b] <- delta/B # density function
     cellprobs[b] <- g[b]*f[b]
     cellprobs.cond[b] <- cellprobs[b]/sum(cellprobs[1:nD])
   }
@@ -32,12 +34,27 @@ sigma ~ dunif(0.01,500) # Distance function parameter
     }
   # Model part 1: Abundance model
   M[s] ~ dpois(lambda[s])
-  log(lambda[s]) <- beta0 + beta1*roads[s] +beta2*land[s]
+  D[s] <- lambda[s]/area[s]
+  log(lambda[s]) <- log(area[s]) + beta0 + beta1*roads[s] +beta2*land[s]
   } # End s loop
+  for(i in 1:nind){
+    groupsize[i] ~ dpois(gamma[site[i]])
+  }
+  for(s in 1:nsites){
+    log(gamma[s]) <- gamma0 + gamma1*roads[s] + gamma2*land[s]
+  }
+  
 # Derived quantities
+  predllambdaroads<-beta0 + beta1*(c(0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0)) + beta2*0.237 
+  predllambdaland<-beta0 + beta1*1.15 + beta2*(c(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9))
+  predlgammaroads<-gamma0 + gamma1*(c(0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0)) + gamma2*0.237
+  predlgammaland<-gamma0 + gamma1*1.15 + gamma2*(c(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9))
+  predlindpersqkmroads<-predllambdaroads+predlgammaroads
+  predlindpersqkmland<-predllambdaland+predlgammaland
   Mtot <- sum(M[])
   for(k in 1:K){
     Ntot[k] <- sum(Navail[,k])
-    Dtot[k] <- Ntot[k]/(2*(B/1000)*434.842)
+    Nindtot[k] <-sum(Navail[,k]*gamma[])
+    Dindtot[k] <- Nindtot[k]/(2*(B/1000)*434.842)
   }
 } # End model
