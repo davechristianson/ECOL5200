@@ -11,8 +11,8 @@
         <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
         #map {
-            width: 1942px;
-            height: 1286px;
+            width: 1642px;
+            height: 1277px;
         }
         </style>
         <title></title>
@@ -31,10 +31,10 @@
         <script src="js/labels.js"></script>
         <script src="js/leaflet-measure.js"></script>
         <script src="data/ecol5200distancewyohub_sa_landuse_1.js"></script>
-        <script src="data/sites_2.js"></script>
-        <script src="data/line_of_sight_3.js"></script>
-        <script src="data/detections_4.js"></script>
-        <script src="data/groups_5.js"></script>
+        <script src="data/groups_2.js"></script>
+        <script src="data/sites_3.js"></script>
+        <script src="data/line_of_sight_4.js"></script>
+        <script src="data/detections_5.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -43,7 +43,7 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:23, minZoom:1
-        }).fitBounds([[40.816361892814534,-106.34829841143439],[41.94330192934778,-104.07898185430946]]);
+        }).fitBounds([[40.84743405304183,-106.52979012877086],[41.91263719588057,-104.70369614338009]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -126,7 +126,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(252,253,191,0.5019607843137255)',
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'Forest Service':
@@ -136,7 +136,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(178,223,138,0.5019607843137255)',
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'Other':
@@ -146,7 +146,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(253,191,111,0.5019607843137255)',
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'Private':
@@ -154,7 +154,7 @@
                 pane: 'pane_ecol5200distancewyohub_sa_landuse_1',
                 stroke: false,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'State':
@@ -164,7 +164,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(166,206,227,0.5019607843137255)',
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'US Fish and Wildlife Service':
@@ -174,7 +174,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(152,125,183,0.4980392156862745)',
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'Water':
@@ -182,7 +182,7 @@
                 pane: 'pane_ecol5200distancewyohub_sa_landuse_1',
                 stroke: false,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
                     break;
                 default:
@@ -197,7 +197,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(115,58,238,1.0)',
-                interactive: false,
+                interactive: true,
             }
                     break;
             }
@@ -207,7 +207,7 @@
         map.getPane('pane_ecol5200distancewyohub_sa_landuse_1').style['mix-blend-mode'] = 'normal';
         var layer_ecol5200distancewyohub_sa_landuse_1 = new L.geoJson(json_ecol5200distancewyohub_sa_landuse_1, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_ecol5200distancewyohub_sa_landuse_1',
             layerName: 'layer_ecol5200distancewyohub_sa_landuse_1',
             pane: 'pane_ecol5200distancewyohub_sa_landuse_1',
@@ -216,7 +216,7 @@
         });
         bounds_group.addLayer(layer_ecol5200distancewyohub_sa_landuse_1);
         map.addLayer(layer_ecol5200distancewyohub_sa_landuse_1);
-        function pop_sites_2(feature, layer) {
+        function pop_groups_2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if (typeof layer.closePopup == 'function') {
@@ -231,1404 +231,157 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">transect_id</th>\
-                        <td>' + (feature.properties['transect_id'] !== null ? autolinker.link(feature.properties['transect_id'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">site_length_km</th>\
-                        <td>' + (feature.properties['site_length_km'] !== null ? autolinker.link(feature.properties['site_length_km'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['Transect ID'] !== null ? autolinker.link(feature.properties['Transect ID'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">site_id</th>\
-                        <td>' + (feature.properties['site_id'] !== null ? autolinker.link(feature.properties['site_id'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['Date'] !== null ? autolinker.link(feature.properties['Date'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">road_kmspersqkm</th>\
-                        <td>' + (feature.properties['road_kmspersqkm'] !== null ? autolinker.link(feature.properties['road_kmspersqkm'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['Driver'] !== null ? autolinker.link(feature.properties['Driver'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">prop_publand</th>\
-                        <td>' + (feature.properties['prop_publand'] !== null ? autolinker.link(feature.properties['prop_publand'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['Primary Observer initials'] !== null ? autolinker.link(feature.properties['Primary Observer initials'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Secondary Observers'] !== null ? autolinker.link(feature.properties['Secondary Observers'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Species'] !== null ? autolinker.link(feature.properties['Species'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Odometer (always enter if GPS fails)'] !== null ? autolinker.link(feature.properties['Odometer (always enter if GPS fails)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Activity'] !== null ? autolinker.link(feature.properties['Detection Activity'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Shadow'] !== null ? autolinker.link(feature.properties['Detection Shadow'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Age/Sex'] !== null ? autolinker.link(feature.properties['Detection Age/Sex'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Surface'] !== null ? autolinker.link(feature.properties['Detection Surface'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Angle'] !== null ? autolinker.link(feature.properties['Detection Angle'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Compass Type (phone app, GPS, magnetic north, true north)'] !== null ? autolinker.link(feature.properties['Compass Type (phone app, GPS, magnetic north, true north)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Time'] !== null ? autolinker.link(feature.properties['Detection Time'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Distance'] !== null ? autolinker.link(feature.properties['Detection Distance'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Visual Aid'] !== null ? autolinker.link(feature.properties['Detection Visual Aid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detector Initials'] !== null ? autolinker.link(feature.properties['Detector Initials'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Total Group Size'] !== null ? autolinker.link(feature.properties['Total Group Size'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['unknown'] !== null ? autolinker.link(feature.properties['unknown'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['adults (unk sex)'] !== null ? autolinker.link(feature.properties['adults (unk sex)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['adult males'] !== null ? autolinker.link(feature.properties['adult males'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['adult females'] !== null ? autolinker.link(feature.properties['adult females'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['juveniles'] !== null ? autolinker.link(feature.properties['juveniles'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['adult female or juvenile (def. not adult male)'] !== null ? autolinker.link(feature.properties['adult female or juvenile (def. not adult male)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Majority group activity'] !== null ? autolinker.link(feature.properties['Majority group activity'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Any visual aid used for group size?'] !== null ? autolinker.link(feature.properties['Any visual aid used for group size?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Notes'] !== null ? autolinker.link(feature.properties['Notes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DC comments'] !== null ? autolinker.link(feature.properties['DC comments'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Your Response'] !== null ? autolinker.link(feature.properties['Your Response'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['jday'] !== null ? autolinker.link(feature.properties['jday'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['survey'] !== null ? autolinker.link(feature.properties['survey'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['replicate'] !== null ? autolinker.link(feature.properties['replicate'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['obs_longitude'] !== null ? autolinker.link(feature.properties['obs_longitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['obs_latitude'] !== null ? autolinker.link(feature.properties['obs_latitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['dist_to_transect'] !== null ? autolinker.link(feature.properties['dist_to_transect'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['site_id'] !== null ? autolinker.link(feature.properties['site_id'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_sites_2_0(feature) {
-            switch(String(feature.properties['site_id'])) {
-                case '1':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(221,151,47,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '10':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(44,219,222,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '11':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(73,235,18,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '12':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(53,78,238,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '13':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(50,203,76,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '14':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(221,69,69,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '15':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(23,220,105,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '16':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(167,92,233,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '17':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(82,233,71,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '18':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(106,218,173,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '19':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(84,20,201,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '2':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(223,157,76,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '20':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(155,114,203,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '21':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(81,53,220,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '22':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(150,240,98,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '23':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(207,98,35,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '24':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(165,88,206,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '25':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(157,202,123,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '26':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(44,174,222,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '27':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(64,235,72,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '28':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(195,223,118,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '29':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(235,47,229,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '3':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(141,206,62,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '30':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(31,90,218,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '31':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(127,225,34,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '32':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(226,125,155,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '33':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(218,232,63,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '34':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(191,118,205,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '35':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(127,86,231,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '36':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(35,205,199,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '37':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(216,213,128,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '38':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(61,123,222,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '39':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(204,157,38,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '4':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(142,51,203,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '40':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(119,121,213,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '41':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(219,118,46,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '42':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(124,208,194,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '43':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(240,18,181,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '44':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(93,206,174,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '45':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(211,62,189,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '46':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(210,108,77,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '47':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(95,130,237,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '48':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(195,212,125,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '49':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(221,49,112,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '5':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(195,200,50,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '50':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(221,195,100,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '51':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(223,88,97,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '52':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(38,198,223,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '53':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(78,231,43,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '54':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(59,95,237,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '55':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(91,166,228,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '56':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(110,200,158,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '57':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(208,85,136,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '58':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(213,149,89,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '59':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(106,205,59,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '6':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(29,187,226,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '60':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(234,184,83,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '61':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(25,15,206,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '62':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(206,16,165,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '63':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(216,42,232,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '64':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(120,167,228,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '65':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(227,73,53,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '66':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(210,33,65,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '67':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(110,174,214,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '68':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(188,225,114,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '69':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(50,203,124,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '7':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(205,187,84,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '70':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(130,206,119,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '71':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(217,111,206,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '72':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(19,232,157,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '73':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(85,232,119,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '74':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(215,38,156,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '75':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(105,215,138,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '76':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(98,106,209,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '77':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(66,203,173,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '78':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(116,176,235,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '79':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(99,23,205,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '8':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(198,91,231,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '80':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(225,206,39,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '81':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(60,40,213,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '82':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(226,23,233,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '83':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(136,224,136,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '84':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(213,83,161,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '85':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(166,42,215,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '86':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(58,222,77,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '87':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(210,40,122,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '88':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(223,52,39,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '89':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(77,217,203,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '9':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(210,87,102,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '90':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(220,19,130,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '91':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(190,210,77,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '92':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(109,219,229,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '93':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(34,234,104,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '94':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(145,204,50,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '95':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(129,194,224,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '96':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(224,34,82,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '97':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(117,81,233,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case '98':
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(200,110,89,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                default:
-                    return {
-                pane: 'pane_sites_2',
-                opacity: 1,
-                color: 'rgba(226,106,55,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 6.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-            }
-        }
-        map.createPane('pane_sites_2');
-        map.getPane('pane_sites_2').style.zIndex = 402;
-        map.getPane('pane_sites_2').style['mix-blend-mode'] = 'normal';
-        var layer_sites_2 = new L.geoJson(json_sites_2, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_sites_2',
-            layerName: 'layer_sites_2',
-            pane: 'pane_sites_2',
-            onEachFeature: pop_sites_2,
-            style: style_sites_2_0,
-        });
-        bounds_group.addLayer(layer_sites_2);
-        map.addLayer(layer_sites_2);
-        function pop_line_of_sight_3(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
-            var popupContent = '<table>\
-                    <tr>\
-                        <th scope="row">Species</th>\
-                        <td>' + (feature.properties['Species'] !== null ? autolinker.link(feature.properties['Species'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Detection Angle</th>\
-                        <td>' + (feature.properties['Detection Angle'] !== null ? autolinker.link(feature.properties['Detection Angle'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Detection Time</th>\
-                        <td>' + (feature.properties['Detection Time'] !== null ? autolinker.link(feature.properties['Detection Time'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Detection Distance</th>\
-                        <td>' + (feature.properties['Detection Distance'] !== null ? autolinker.link(feature.properties['Detection Distance'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Detector Initials</th>\
-                        <td>' + (feature.properties['Detector Initials'] !== null ? autolinker.link(feature.properties['Detector Initials'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Total Group Size</th>\
-                        <td>' + (feature.properties['Total Group Size'] !== null ? autolinker.link(feature.properties['Total Group Size'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_line_of_sight_3_0() {
+        function style_groups_2_0() {
             return {
-                pane: 'pane_line_of_sight_3',
+                pane: 'pane_groups_2',
+                radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
-                dashArray: '1,5',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 1.0,
-                fillOpacity: 0,
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(164,113,88,1.0)',
                 interactive: true,
             }
         }
-        map.createPane('pane_line_of_sight_3');
-        map.getPane('pane_line_of_sight_3').style.zIndex = 403;
-        map.getPane('pane_line_of_sight_3').style['mix-blend-mode'] = 'normal';
-        var layer_line_of_sight_3 = new L.geoJson(json_line_of_sight_3, {
+        map.createPane('pane_groups_2');
+        map.getPane('pane_groups_2').style.zIndex = 402;
+        map.getPane('pane_groups_2').style['mix-blend-mode'] = 'normal';
+        var layer_groups_2 = new L.geoJson(json_groups_2, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_line_of_sight_3',
-            layerName: 'layer_line_of_sight_3',
-            pane: 'pane_line_of_sight_3',
-            onEachFeature: pop_line_of_sight_3,
-            style: style_line_of_sight_3_0,
+            dataVar: 'json_groups_2',
+            layerName: 'layer_groups_2',
+            pane: 'pane_groups_2',
+            onEachFeature: pop_groups_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_groups_2_0(feature));
+            },
         });
-        bounds_group.addLayer(layer_line_of_sight_3);
-        map.addLayer(layer_line_of_sight_3);
-        function pop_detections_4(feature, layer) {
+        bounds_group.addLayer(layer_groups_2);
+        map.addLayer(layer_groups_2);
+        function pop_sites_3(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if (typeof layer.closePopup == 'function') {
@@ -1647,30 +400,1615 @@
                         <td>' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Date</th>\
-                        <td>' + (feature.properties['Date'] !== null ? autolinker.link(feature.properties['Date'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">transect_id</th>\
+                        <td>' + (feature.properties['transect_id'] !== null ? autolinker.link(feature.properties['transect_id'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Driver</th>\
-                        <td>' + (feature.properties['Driver'] !== null ? autolinker.link(feature.properties['Driver'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">length_km</th>\
+                        <td>' + (feature.properties['length_km'] !== null ? autolinker.link(feature.properties['length_km'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">site_length_km</th>\
+                        <td>' + (feature.properties['site_length_km'] !== null ? autolinker.link(feature.properties['site_length_km'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">site_id</th>\
+                        <td>' + (feature.properties['site_id'] !== null ? autolinker.link(feature.properties['site_id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">road_kmspersqkm</th>\
+                        <td>' + (feature.properties['road_kmspersqkm'] !== null ? autolinker.link(feature.properties['road_kmspersqkm'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">prop_publand</th>\
+                        <td>' + (feature.properties['prop_publand'] !== null ? autolinker.link(feature.properties['prop_publand'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['rep-1'] !== null ? autolinker.link(feature.properties['rep-1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['rep-2'] !== null ? autolinker.link(feature.properties['rep-2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['rep-3'] !== null ? autolinker.link(feature.properties['rep-3'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['rep-4'] !== null ? autolinker.link(feature.properties['rep-4'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['rep-5'] !== null ? autolinker.link(feature.properties['rep-5'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['rep-6'] !== null ? autolinker.link(feature.properties['rep-6'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['totalreps'] !== null ? autolinker.link(feature.properties['totalreps'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_sites_3_0(feature) {
+            switch(String(feature.properties['site_id'])) {
+                case '1':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(221,151,47,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '10':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(44,219,222,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '11':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(73,235,18,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '12':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(53,78,238,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '13':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(50,203,76,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '14':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(221,69,69,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '15':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(23,220,105,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '16':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(167,92,233,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '17':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(82,233,71,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '18':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(106,218,173,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '19':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(84,20,201,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '2':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(223,157,76,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '20':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(155,114,203,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '21':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(81,53,220,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '22':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(150,240,98,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '23':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(207,98,35,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '24':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(165,88,206,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '25':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(157,202,123,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '26':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(44,174,222,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '27':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(64,235,72,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '28':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(195,223,118,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '29':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(235,47,229,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '3':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(141,206,62,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '30':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(31,90,218,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '31':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(127,225,34,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '32':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(226,125,155,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '33':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(218,232,63,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '34':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(191,118,205,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '35':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(127,86,231,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '36':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(35,205,199,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '37':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(216,213,128,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '38':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(61,123,222,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '39':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(204,157,38,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '4':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(142,51,203,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '40':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(119,121,213,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '41':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(219,118,46,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '42':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(124,208,194,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '43':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(240,18,181,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '44':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(93,206,174,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '45':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(211,62,189,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '46':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(210,108,77,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '47':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(95,130,237,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '48':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(195,212,125,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '49':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(221,49,112,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '5':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(195,200,50,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '50':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(221,195,100,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '51':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(223,88,97,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '52':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(38,198,223,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '53':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(78,231,43,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '54':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(59,95,237,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '55':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(91,166,228,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '56':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(110,200,158,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '57':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(208,85,136,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '58':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(213,149,89,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '59':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(106,205,59,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '6':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(29,187,226,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '60':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(234,184,83,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '61':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(25,15,206,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '62':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(206,16,165,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '63':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(216,42,232,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '64':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(120,167,228,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '65':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(227,73,53,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '66':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(210,33,65,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '67':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(110,174,214,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '68':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(188,225,114,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '69':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(50,203,124,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '7':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(205,187,84,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '70':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(130,206,119,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '71':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(217,111,206,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '72':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(19,232,157,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '73':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(85,232,119,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '74':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(215,38,156,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '75':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(105,215,138,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '76':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(98,106,209,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '77':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(66,203,173,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '78':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(116,176,235,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '79':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(99,23,205,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '8':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(198,91,231,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '80':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(225,206,39,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '81':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(60,40,213,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '82':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(226,23,233,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '83':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(136,224,136,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '84':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(213,83,161,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '85':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(166,42,215,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '86':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(58,222,77,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '87':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(210,40,122,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '88':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(223,52,39,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '89':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(77,217,203,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '9':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(210,87,102,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '90':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(220,19,130,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '91':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(190,210,77,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '92':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(109,219,229,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '93':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(34,234,104,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '94':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(145,204,50,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '95':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(129,194,224,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '96':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(224,34,82,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '97':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(117,81,233,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case '98':
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(200,110,89,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_sites_3',
+                opacity: 1,
+                color: 'rgba(226,106,55,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_sites_3');
+        map.getPane('pane_sites_3').style.zIndex = 403;
+        map.getPane('pane_sites_3').style['mix-blend-mode'] = 'normal';
+        var layer_sites_3 = new L.geoJson(json_sites_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_sites_3',
+            layerName: 'layer_sites_3',
+            pane: 'pane_sites_3',
+            onEachFeature: pop_sites_3,
+            style: style_sites_3_0,
+        });
+        bounds_group.addLayer(layer_sites_3);
+        map.addLayer(layer_sites_3);
+        function pop_line_of_sight_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Transect ID'] !== null ? autolinker.link(feature.properties['Transect ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Primary Observer initials'] !== null ? autolinker.link(feature.properties['Primary Observer initials'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Secondary Observers'] !== null ? autolinker.link(feature.properties['Secondary Observers'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Species</th>\
                         <td>' + (feature.properties['Species'] !== null ? autolinker.link(feature.properties['Species'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Detector Initials</th>\
-                        <td>' + (feature.properties['Detector Initials'] !== null ? autolinker.link(feature.properties['Detector Initials'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['Odometer (always enter if GPS fails)'] !== null ? autolinker.link(feature.properties['Odometer (always enter if GPS fails)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Activity'] !== null ? autolinker.link(feature.properties['Detection Activity'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Shadow'] !== null ? autolinker.link(feature.properties['Detection Shadow'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Age/Sex'] !== null ? autolinker.link(feature.properties['Detection Age/Sex'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Surface'] !== null ? autolinker.link(feature.properties['Detection Surface'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Angle'] !== null ? autolinker.link(feature.properties['Detection Angle'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Compass Type (phone app, GPS, magnetic north, true north)'] !== null ? autolinker.link(feature.properties['Compass Type (phone app, GPS, magnetic north, true north)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Time'] !== null ? autolinker.link(feature.properties['Detection Time'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Distance'] !== null ? autolinker.link(feature.properties['Detection Distance'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Visual Aid'] !== null ? autolinker.link(feature.properties['Detection Visual Aid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detector Initials'] !== null ? autolinker.link(feature.properties['Detector Initials'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Total Group Size'] !== null ? autolinker.link(feature.properties['Total Group Size'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['adults (unk sex)'] !== null ? autolinker.link(feature.properties['adults (unk sex)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['adult males'] !== null ? autolinker.link(feature.properties['adult males'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['adult females'] !== null ? autolinker.link(feature.properties['adult females'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['adult female or juvenile (def. not adult male)'] !== null ? autolinker.link(feature.properties['adult female or juvenile (def. not adult male)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Majority group activity'] !== null ? autolinker.link(feature.properties['Majority group activity'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Any visual aid used for group size?'] !== null ? autolinker.link(feature.properties['Any visual aid used for group size?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DC comments'] !== null ? autolinker.link(feature.properties['DC comments'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Your Response'] !== null ? autolinker.link(feature.properties['Your Response'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['jday'] !== null ? autolinker.link(feature.properties['jday'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['survey'] !== null ? autolinker.link(feature.properties['survey'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['replicate'] !== null ? autolinker.link(feature.properties['replicate'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">dist_to_transect</th>\
+                        <td>' + (feature.properties['dist_to_transect'] !== null ? autolinker.link(feature.properties['dist_to_transect'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['site_id'] !== null ? autolinker.link(feature.properties['site_id'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_detections_4_0(feature) {
+        function style_line_of_sight_4_0() {
+            return {
+                pane: 'pane_line_of_sight_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '1,5',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_line_of_sight_4');
+        map.getPane('pane_line_of_sight_4').style.zIndex = 404;
+        map.getPane('pane_line_of_sight_4').style['mix-blend-mode'] = 'normal';
+        var layer_line_of_sight_4 = new L.geoJson(json_line_of_sight_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_line_of_sight_4',
+            layerName: 'layer_line_of_sight_4',
+            pane: 'pane_line_of_sight_4',
+            onEachFeature: pop_line_of_sight_4,
+            style: style_line_of_sight_4_0,
+        });
+        bounds_group.addLayer(layer_line_of_sight_4);
+        map.addLayer(layer_line_of_sight_4);
+        function pop_detections_5(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Transect ID'] !== null ? autolinker.link(feature.properties['Transect ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Date'] !== null ? autolinker.link(feature.properties['Date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Driver'] !== null ? autolinker.link(feature.properties['Driver'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Primary Observer initials'] !== null ? autolinker.link(feature.properties['Primary Observer initials'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Secondary Observers'] !== null ? autolinker.link(feature.properties['Secondary Observers'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Species'] !== null ? autolinker.link(feature.properties['Species'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Odometer (always enter if GPS fails)'] !== null ? autolinker.link(feature.properties['Odometer (always enter if GPS fails)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Activity'] !== null ? autolinker.link(feature.properties['Detection Activity'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Shadow'] !== null ? autolinker.link(feature.properties['Detection Shadow'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Age/Sex'] !== null ? autolinker.link(feature.properties['Detection Age/Sex'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Surface'] !== null ? autolinker.link(feature.properties['Detection Surface'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Angle'] !== null ? autolinker.link(feature.properties['Detection Angle'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Compass Type (phone app, GPS, magnetic north, true north)'] !== null ? autolinker.link(feature.properties['Compass Type (phone app, GPS, magnetic north, true north)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Time'] !== null ? autolinker.link(feature.properties['Detection Time'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Distance'] !== null ? autolinker.link(feature.properties['Detection Distance'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detection Visual Aid'] !== null ? autolinker.link(feature.properties['Detection Visual Aid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Detector Initials'] !== null ? autolinker.link(feature.properties['Detector Initials'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Total Group Size'] !== null ? autolinker.link(feature.properties['Total Group Size'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['unknown'] !== null ? autolinker.link(feature.properties['unknown'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['adults (unk sex)'] !== null ? autolinker.link(feature.properties['adults (unk sex)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['adult males'] !== null ? autolinker.link(feature.properties['adult males'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['adult females'] !== null ? autolinker.link(feature.properties['adult females'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['juveniles'] !== null ? autolinker.link(feature.properties['juveniles'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['adult female or juvenile (def. not adult male)'] !== null ? autolinker.link(feature.properties['adult female or juvenile (def. not adult male)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Majority group activity'] !== null ? autolinker.link(feature.properties['Majority group activity'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Any visual aid used for group size?'] !== null ? autolinker.link(feature.properties['Any visual aid used for group size?'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Notes'] !== null ? autolinker.link(feature.properties['Notes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DC comments'] !== null ? autolinker.link(feature.properties['DC comments'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Your Response'] !== null ? autolinker.link(feature.properties['Your Response'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['jday'] !== null ? autolinker.link(feature.properties['jday'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['survey'] !== null ? autolinker.link(feature.properties['survey'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['replicate'] !== null ? autolinker.link(feature.properties['replicate'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_detections_5_0(feature) {
             switch(String(feature.properties['Species'])) {
                 case 'bighorn sheep':
                     return {
-                pane: 'pane_detections_4',
+                pane: 'pane_detections_5',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1686,7 +2024,7 @@
                     break;
                 case 'coyote':
                     return {
-                pane: 'pane_detections_4',
+                pane: 'pane_detections_5',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1702,7 +2040,7 @@
                     break;
                 case 'elk':
                     return {
-                pane: 'pane_detections_4',
+                pane: 'pane_detections_5',
                 radius: 6.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1718,7 +2056,7 @@
                     break;
                 case 'end':
                     return {
-                pane: 'pane_detections_4',
+                pane: 'pane_detections_5',
                 radius: 6.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1734,7 +2072,7 @@
                     break;
                 case 'moose':
                     return {
-                pane: 'pane_detections_4',
+                pane: 'pane_detections_5',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1750,7 +2088,7 @@
                     break;
                 case 'muledeer':
                     return {
-                pane: 'pane_detections_4',
+                pane: 'pane_detections_5',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1766,7 +2104,7 @@
                     break;
                 case 'pronghorn':
                     return {
-                pane: 'pane_detections_4',
+                pane: 'pane_detections_5',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1782,7 +2120,7 @@
                     break;
                 case 'start':
                     return {
-                pane: 'pane_detections_4',
+                pane: 'pane_detections_5',
                 radius: 6.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1798,7 +2136,7 @@
                     break;
                 case 'white-tailed deer':
                     return {
-                pane: 'pane_detections_4',
+                pane: 'pane_detections_5',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1814,7 +2152,7 @@
                     break;
                 default:
                     return {
-                pane: 'pane_detections_4',
+                pane: 'pane_detections_5',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -1830,110 +2168,28 @@
                     break;
             }
         }
-        map.createPane('pane_detections_4');
-        map.getPane('pane_detections_4').style.zIndex = 404;
-        map.getPane('pane_detections_4').style['mix-blend-mode'] = 'normal';
-        var layer_detections_4 = new L.geoJson(json_detections_4, {
+        map.createPane('pane_detections_5');
+        map.getPane('pane_detections_5').style.zIndex = 405;
+        map.getPane('pane_detections_5').style['mix-blend-mode'] = 'normal';
+        var layer_detections_5 = new L.geoJson(json_detections_5, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_detections_4',
-            layerName: 'layer_detections_4',
-            pane: 'pane_detections_4',
-            onEachFeature: pop_detections_4,
+            dataVar: 'json_detections_5',
+            layerName: 'layer_detections_5',
+            pane: 'pane_detections_5',
+            onEachFeature: pop_detections_5,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_detections_4_0(feature));
+                return L.circleMarker(latlng, style_detections_5_0(feature));
             },
         });
-        bounds_group.addLayer(layer_detections_4);
-        map.addLayer(layer_detections_4);
-        function pop_groups_5(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
-            var popupContent = '<table>\
-                    <tr>\
-                        <th scope="row">Date</th>\
-                        <td>' + (feature.properties['Date'] !== null ? autolinker.link(feature.properties['Date'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Species</th>\
-                        <td>' + (feature.properties['Species'] !== null ? autolinker.link(feature.properties['Species'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Detection Time</th>\
-                        <td>' + (feature.properties['Detection Time'] !== null ? autolinker.link(feature.properties['Detection Time'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Detector Initials</th>\
-                        <td>' + (feature.properties['Detector Initials'] !== null ? autolinker.link(feature.properties['Detector Initials'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Total Group Size</th>\
-                        <td>' + (feature.properties['Total Group Size'] !== null ? autolinker.link(feature.properties['Total Group Size'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">dist_to_transect</th>\
-                        <td>' + (feature.properties['dist_to_transect'] !== null ? autolinker.link(feature.properties['dist_to_transect'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">site_id</th>\
-                        <td>' + (feature.properties['site_id'] !== null ? autolinker.link(feature.properties['site_id'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_groups_5_0() {
-            return {
-                pane: 'pane_groups_5',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(164,113,88,1.0)',
-                interactive: true,
-            }
-        }
-        map.createPane('pane_groups_5');
-        map.getPane('pane_groups_5').style.zIndex = 405;
-        map.getPane('pane_groups_5').style['mix-blend-mode'] = 'normal';
-        var layer_groups_5 = new L.geoJson(json_groups_5, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_groups_5',
-            layerName: 'layer_groups_5',
-            pane: 'pane_groups_5',
-            onEachFeature: pop_groups_5,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_groups_5_0(feature));
-            },
-        });
-        bounds_group.addLayer(layer_groups_5);
-        map.addLayer(layer_groups_5);
+        bounds_group.addLayer(layer_detections_5);
+        map.addLayer(layer_detections_5);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/groups_5.png" /> groups': layer_groups_5,'detections<br /><table><tr><td style="text-align: center;"><img src="legend/detections_4_bighornsheep0.png" /></td><td>bighorn sheep</td></tr><tr><td style="text-align: center;"><img src="legend/detections_4_coyote1.png" /></td><td>coyote</td></tr><tr><td style="text-align: center;"><img src="legend/detections_4_elk2.png" /></td><td>elk</td></tr><tr><td style="text-align: center;"><img src="legend/detections_4_end3.png" /></td><td>end</td></tr><tr><td style="text-align: center;"><img src="legend/detections_4_moose4.png" /></td><td>moose</td></tr><tr><td style="text-align: center;"><img src="legend/detections_4_muledeer5.png" /></td><td>muledeer</td></tr><tr><td style="text-align: center;"><img src="legend/detections_4_pronghorn6.png" /></td><td>pronghorn</td></tr><tr><td style="text-align: center;"><img src="legend/detections_4_start7.png" /></td><td>start</td></tr><tr><td style="text-align: center;"><img src="legend/detections_4_whitetaileddeer8.png" /></td><td>white-tailed deer</td></tr><tr><td style="text-align: center;"><img src="legend/detections_4_9.png" /></td><td></td></tr></table>': layer_detections_4,'<img src="legend/line_of_sight_3.png" /> line_of_sight': layer_line_of_sight_3,'sites<br /><table><tr><td style="text-align: center;"><img src="legend/sites_2_10.png" /></td><td>1</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_101.png" /></td><td>10</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_112.png" /></td><td>11</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_123.png" /></td><td>12</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_134.png" /></td><td>13</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_145.png" /></td><td>14</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_156.png" /></td><td>15</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_167.png" /></td><td>16</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_178.png" /></td><td>17</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_189.png" /></td><td>18</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_1910.png" /></td><td>19</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_211.png" /></td><td>2</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2012.png" /></td><td>20</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2113.png" /></td><td>21</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2214.png" /></td><td>22</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2315.png" /></td><td>23</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2416.png" /></td><td>24</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2517.png" /></td><td>25</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2618.png" /></td><td>26</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2719.png" /></td><td>27</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2820.png" /></td><td>28</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_2921.png" /></td><td>29</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_322.png" /></td><td>3</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3023.png" /></td><td>30</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3124.png" /></td><td>31</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3225.png" /></td><td>32</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3326.png" /></td><td>33</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3427.png" /></td><td>34</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3528.png" /></td><td>35</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3629.png" /></td><td>36</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3730.png" /></td><td>37</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3831.png" /></td><td>38</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_3932.png" /></td><td>39</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_433.png" /></td><td>4</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4034.png" /></td><td>40</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4135.png" /></td><td>41</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4236.png" /></td><td>42</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4337.png" /></td><td>43</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4438.png" /></td><td>44</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4539.png" /></td><td>45</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4640.png" /></td><td>46</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4741.png" /></td><td>47</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4842.png" /></td><td>48</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_4943.png" /></td><td>49</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_544.png" /></td><td>5</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5045.png" /></td><td>50</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5146.png" /></td><td>51</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5247.png" /></td><td>52</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5348.png" /></td><td>53</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5449.png" /></td><td>54</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5550.png" /></td><td>55</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5651.png" /></td><td>56</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5752.png" /></td><td>57</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5853.png" /></td><td>58</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_5954.png" /></td><td>59</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_655.png" /></td><td>6</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6056.png" /></td><td>60</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6157.png" /></td><td>61</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6258.png" /></td><td>62</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6359.png" /></td><td>63</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6460.png" /></td><td>64</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6561.png" /></td><td>65</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6662.png" /></td><td>66</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6763.png" /></td><td>67</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6864.png" /></td><td>68</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_6965.png" /></td><td>69</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_766.png" /></td><td>7</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7067.png" /></td><td>70</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7168.png" /></td><td>71</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7269.png" /></td><td>72</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7370.png" /></td><td>73</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7471.png" /></td><td>74</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7572.png" /></td><td>75</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7673.png" /></td><td>76</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7774.png" /></td><td>77</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7875.png" /></td><td>78</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_7976.png" /></td><td>79</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_877.png" /></td><td>8</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8078.png" /></td><td>80</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8179.png" /></td><td>81</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8280.png" /></td><td>82</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8381.png" /></td><td>83</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8482.png" /></td><td>84</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8583.png" /></td><td>85</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8684.png" /></td><td>86</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8785.png" /></td><td>87</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8886.png" /></td><td>88</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_8987.png" /></td><td>89</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_988.png" /></td><td>9</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9089.png" /></td><td>90</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9190.png" /></td><td>91</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9291.png" /></td><td>92</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9392.png" /></td><td>93</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9493.png" /></td><td>94</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9594.png" /></td><td>95</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9695.png" /></td><td>96</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9796.png" /></td><td>97</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_9897.png" /></td><td>98</td></tr><tr><td style="text-align: center;"><img src="legend/sites_2_98.png" /></td><td></td></tr></table>': layer_sites_2,'ecol5200distance — wyohub_sa_landuse<br /><table><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_BureauofLandManagement0.png" /></td><td>Bureau of Land Management</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_ForestService1.png" /></td><td>Forest Service</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_Other2.png" /></td><td>Other</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_Private3.png" /></td><td>Private</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_State4.png" /></td><td>State</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_USFishandWildlifeService5.png" /></td><td>US Fish and Wildlife Service</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_Water6.png" /></td><td>Water</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_7.png" /></td><td></td></tr></table>': layer_ecol5200distancewyohub_sa_landuse_1,"OpenStreetMap": layer_OpenStreetMap_0,}).addTo(map);
+        L.control.layers(baseMaps,{'detections<br /><table><tr><td style="text-align: center;"><img src="legend/detections_5_bighornsheep0.png" /></td><td>bighorn sheep</td></tr><tr><td style="text-align: center;"><img src="legend/detections_5_coyote1.png" /></td><td>coyote</td></tr><tr><td style="text-align: center;"><img src="legend/detections_5_elk2.png" /></td><td>elk</td></tr><tr><td style="text-align: center;"><img src="legend/detections_5_end3.png" /></td><td>end</td></tr><tr><td style="text-align: center;"><img src="legend/detections_5_moose4.png" /></td><td>moose</td></tr><tr><td style="text-align: center;"><img src="legend/detections_5_muledeer5.png" /></td><td>muledeer</td></tr><tr><td style="text-align: center;"><img src="legend/detections_5_pronghorn6.png" /></td><td>pronghorn</td></tr><tr><td style="text-align: center;"><img src="legend/detections_5_start7.png" /></td><td>start</td></tr><tr><td style="text-align: center;"><img src="legend/detections_5_whitetaileddeer8.png" /></td><td>white-tailed deer</td></tr><tr><td style="text-align: center;"><img src="legend/detections_5_9.png" /></td><td></td></tr></table>': layer_detections_5,'<img src="legend/line_of_sight_4.png" /> line_of_sight': layer_line_of_sight_4,'sites<br /><table><tr><td style="text-align: center;"><img src="legend/sites_3_10.png" /></td><td>1</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_101.png" /></td><td>10</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_112.png" /></td><td>11</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_123.png" /></td><td>12</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_134.png" /></td><td>13</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_145.png" /></td><td>14</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_156.png" /></td><td>15</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_167.png" /></td><td>16</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_178.png" /></td><td>17</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_189.png" /></td><td>18</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_1910.png" /></td><td>19</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_211.png" /></td><td>2</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_2012.png" /></td><td>20</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_2113.png" /></td><td>21</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_2214.png" /></td><td>22</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_2315.png" /></td><td>23</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_2416.png" /></td><td>24</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_2517.png" /></td><td>25</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_2618.png" /></td><td>26</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_2719.png" /></td><td>27</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_2820.png" /></td><td>28</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_2921.png" /></td><td>29</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_322.png" /></td><td>3</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_3023.png" /></td><td>30</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_3124.png" /></td><td>31</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_3225.png" /></td><td>32</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_3326.png" /></td><td>33</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_3427.png" /></td><td>34</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_3528.png" /></td><td>35</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_3629.png" /></td><td>36</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_3730.png" /></td><td>37</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_3831.png" /></td><td>38</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_3932.png" /></td><td>39</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_433.png" /></td><td>4</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_4034.png" /></td><td>40</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_4135.png" /></td><td>41</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_4236.png" /></td><td>42</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_4337.png" /></td><td>43</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_4438.png" /></td><td>44</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_4539.png" /></td><td>45</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_4640.png" /></td><td>46</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_4741.png" /></td><td>47</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_4842.png" /></td><td>48</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_4943.png" /></td><td>49</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_544.png" /></td><td>5</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_5045.png" /></td><td>50</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_5146.png" /></td><td>51</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_5247.png" /></td><td>52</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_5348.png" /></td><td>53</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_5449.png" /></td><td>54</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_5550.png" /></td><td>55</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_5651.png" /></td><td>56</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_5752.png" /></td><td>57</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_5853.png" /></td><td>58</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_5954.png" /></td><td>59</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_655.png" /></td><td>6</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_6056.png" /></td><td>60</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_6157.png" /></td><td>61</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_6258.png" /></td><td>62</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_6359.png" /></td><td>63</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_6460.png" /></td><td>64</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_6561.png" /></td><td>65</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_6662.png" /></td><td>66</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_6763.png" /></td><td>67</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_6864.png" /></td><td>68</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_6965.png" /></td><td>69</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_766.png" /></td><td>7</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_7067.png" /></td><td>70</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_7168.png" /></td><td>71</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_7269.png" /></td><td>72</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_7370.png" /></td><td>73</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_7471.png" /></td><td>74</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_7572.png" /></td><td>75</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_7673.png" /></td><td>76</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_7774.png" /></td><td>77</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_7875.png" /></td><td>78</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_7976.png" /></td><td>79</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_877.png" /></td><td>8</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_8078.png" /></td><td>80</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_8179.png" /></td><td>81</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_8280.png" /></td><td>82</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_8381.png" /></td><td>83</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_8482.png" /></td><td>84</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_8583.png" /></td><td>85</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_8684.png" /></td><td>86</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_8785.png" /></td><td>87</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_8886.png" /></td><td>88</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_8987.png" /></td><td>89</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_988.png" /></td><td>9</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_9089.png" /></td><td>90</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_9190.png" /></td><td>91</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_9291.png" /></td><td>92</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_9392.png" /></td><td>93</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_9493.png" /></td><td>94</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_9594.png" /></td><td>95</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_9695.png" /></td><td>96</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_9796.png" /></td><td>97</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_9897.png" /></td><td>98</td></tr><tr><td style="text-align: center;"><img src="legend/sites_3_98.png" /></td><td></td></tr></table>': layer_sites_3,'<img src="legend/groups_2.png" /> groups': layer_groups_2,'ecol5200distance — wyohub_sa_landuse<br /><table><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_BureauofLandManagement0.png" /></td><td>Bureau of Land Management</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_ForestService1.png" /></td><td>Forest Service</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_Other2.png" /></td><td>Other</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_Private3.png" /></td><td>Private</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_State4.png" /></td><td>State</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_USFishandWildlifeService5.png" /></td><td>US Fish and Wildlife Service</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_Water6.png" /></td><td>Water</td></tr><tr><td style="text-align: center;"><img src="legend/ecol5200distancewyohub_sa_landuse_1_7.png" /></td><td></td></tr></table>': layer_ecol5200distancewyohub_sa_landuse_1,"OpenStreetMap": layer_OpenStreetMap_0,}).addTo(map);
         setBounds();
         </script>
     </body>
