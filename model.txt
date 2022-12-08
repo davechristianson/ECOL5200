@@ -13,11 +13,8 @@ alpha2 ~ dnorm(0,0.01)
 gamma0 ~ dnorm(0,0.01)
 gamma1 ~ dnorm(0,0.01)
 gamma2 ~ dnorm(0,0.01)
-
-sd~runif(0,10)
+sd~dunif(0,10)
 tau<-1/pow(sd,2)
-
-
 r ~ dunif(0,10)
 r.lam ~ dunif(0,10)
 
@@ -33,10 +30,6 @@ r.lam ~ dunif(0,10)
     }
     cellprobs[nD+1,s] <- 1-sum(cellprobs[1:nD,s])
 
-  
-  
-  
-    
     #logit(phi[s]) <- alpha0 + alpha1*roads[s] + alpha2*land[s]
     
     for (k in 1:nreps[s]) {
@@ -44,13 +37,13 @@ r.lam ~ dunif(0,10)
       g3d[s,1:nD,k] ~ dmulti(cellprobs.cond[1:nD,s], gobs[s,k])
       
       # Model  1: using standard model of group abundance multiplied by mean group size
-      #gobs[s,k] ~ dbin(pdet[s,k], G[s])
+      gobs[s,k] ~ dbin(pdet[s,k], G[s])
       
       #Model 2:  lambda=individuals, Group abundance is Individual abundance divided by mean group size
       #gobs[s,k] ~ dbin(pdet[s,k], G[s])
       
       # Model 3: lambda=indivduals, indivdiual det prob inherited from group det prob
-      nobs[s,k] ~ dbin(pdet[s,k], N[s])
+      #nobs[s,k] ~ dbin(pdet[s,k], N[s])
       
     } 
     eps.site[s] ~ dnorm(0,tau)
@@ -58,9 +51,8 @@ r.lam ~ dunif(0,10)
     llambda.lim[s] <- min(250, max(-250, llambda[s])) # 'Stabilize' log
     llambda[s] <- log(area[s]) + beta0 + beta1*roads[s] +beta2*(exp(land[s])/(1+exp(land[s]))) + eps.site[s]
     
-    
     #Model 1: lambda=groups, conventional model of group abundance multiplied by mean groups size
-    #G[s] ~ dpois(lambda[s]) # super-population of group sizes, is superpopulation/mean groupsize
+    G[s] ~ dpois(lambda[s]) # super-population of group sizes, is superpopulation/mean groupsize
 
     #Model 2:  lambda=individuals, Group abundance is Individual abundance divided by mean group size
     #N[s] ~ dnegbin(probs.lam[s], r.lam)
@@ -68,9 +60,8 @@ r.lam ~ dunif(0,10)
     #G[s] ~ dpois(N[s]/gamma[s]) # super-population of group sizes, is superpopulation/mean groupsize
 
     #Model 3:  lambda=indivduals, indivdiual det prob inherited from group det prob
-    N[s] ~ dnegbin(probs.lam[s], r.lam)
-    probs.lam[s] <- r.lam/(r.lam+lambda[s])
-
+    #N[s] ~ dnegbin(probs.lam[s], r.lam)
+    #probs.lam[s] <- r.lam/(r.lam+lambda[s])
 
     #for (k in 1:K){
       #Gavail[s,k] ~ dbin(phi[s], G[s])
@@ -90,12 +81,12 @@ r.lam ~ dunif(0,10)
   }
   
   #Model 1
-  #Ntot<- sum(lambda[]*gamma[])
+  Ntot<- sum(lambda[]*gamma[])
   
   #Model 2
   #Ntot<-sum(N[])
   
   #Model 3
-  Ntot<-sum(N[])
+  #Ntot<-sum(N[])
 
 } 
