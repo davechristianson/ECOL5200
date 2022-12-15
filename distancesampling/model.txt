@@ -1,43 +1,64 @@
 
 model {
 # Prior distributions
-beta0 ~ dnorm(0, 0.01) # Intercept for log(lambda)
+beta0 ~ dnorm(0, 0.01) # Intercept for log(lambda.group)
 mean.lam <- exp(beta0)
-beta1 ~ dnorm(0, 0.01) # Coefficient of lambda on roads
-beta2 ~ dnorm(0,0.01)
-phi ~ dunif(0,1) # Probability of availability
-sigma ~ dunif(0.01,500) # Distance function parameter
+beta1 ~ dnorm(0, 0.01) # Coefficient of roads on lambda.group
+beta2 ~ dnorm(0,0.01) # Coefficient of public land
+phi0 ~ dunif(0,1) # Probability of availability
+alpha0 <- exp(phi0)/(1+exp(phi0))
+alpha1 ~ dnorm(0,0.01)
+alpha2 ~ dnorm(0,0.01)
+sigma ~ dunif(0.01,5) # Distance function parameter
+gamma0 ~ dnorm(0,0.01)
+gamma1 ~ dnorm(0,0.01)
+gamma2 ~ dnorm(0,0.01)
 
-# Detection probs for each distance interval and related things
+r ~ dunif(0,10)
+r.lam ~ dunif(0,10)
+
   for(b in 1:nD){
     log(g[b]) <- -midpt[b]*midpt[b]/(2*sigma*sigma) # half-normal
-    f[b] <- (2*midpt[b]*delta)/(B*B) # radial density function
+    f[b] <- delta/B # density function
     cellprobs[b] <- g[b]*f[b]
     cellprobs.cond[b] <- cellprobs[b]/sum(cellprobs[1:nD])
   }
   cellprobs[nD+1] <- 1-sum(cellprobs[1:nD])
+
   for (s in 1:nsites) {
+    
+    logit(phi[s]) <- alpha0 + alpha1*roads[s] + alpha2*land[s]
     for (k in 1:nreps[s]) {
       pdet[s,k] <- sum(cellprobs[1:nD]) # Distance class probabilities
-      pmarg[s,k] <- pdet[s,k]*phi # Marginal probability
-    # Model part 4: distance class frequencies
-      y3d[s,1:nD,k] ~ dmulti(cellprobs.cond[1:nD], nobs[s,k])
-    # Model part 3: total number of detections:
-      nobs[s,k] ~ dbin(pmarg[s,k], M[s])
-      # nobs[s,k] ~ dbin(pdet[s,k], Navail[s,k]) # Alternative formulation
-    } # End observed k loop
+      #pmarg[s,k] <- pdet[s,k]*phi[s] # Marginal probability
+      g3d[s,1:nD,k] ~ dmulti(cellprobs.cond[1:nD], gobs[s,k])
+      #gobs[s,k] ~ dbin(pdet[s,k], Gavail[s,k])
+      gobs[s,k] ~ dpois(nobs[s,k]/gamma[s])
+    } 
+
+    N[s] ~ dnegbin(probs.lam[s], r.lam)
+    probs.lam[s] <- r.lam/(r.lam+lambda[s])
+    lambda[s] <- exp(llambda.lim[s])
+    llambda.lim[s] <- min(250, max(-250, llambda[s])) # 'Stabilize' log
+    llambda[s] <- beta0 + beta1*roads[s] +beta2*land[s]
+    G[s] ~ dpois(N[s]/gamma[s]) # super-population of group sizes, is superpopulation/mean groupsize
+
     for (k in 1:K){
-    # Model part 2: Availability. Not used in this model but simulated.
-      Navail[s,k] ~ dbin(phi, M[s])
+      Gavail[s,k] ~ dbin(phi[s], G[s])
     }
-  # Model part 1: Abundance model
-  M[s] ~ dpois(lambda[s])
-  log(lambda[s]) <- beta0 + beta1*roads[s] +beta2*land[s]
-  } # End s loop
-# Derived quantities
-  Mtot <- sum(M[])
-  for(k in 1:K){
-    Ntot[k] <- sum(Navail[,k])
-    Dtot[k] <- Ntot[k]/(2*(B/1000)*434.842)
+
+  } 
+
+  for(i in 1:ngroup){
+    groupsize[i] ~ dnegbin(probs[site[i]],r)
   }
-} # End model
+
+  for(s in 1:nsites){
+    log(gamma[s]) <- gamma0 + gamma1*roads[s] + gamma2*land[s]
+    probs[s]<-r/(r+gamma[s])
+  }
+  
+  Ntot<-sum(N[])
+  mean.gamma<-mean(gamma[])
+
+} 
