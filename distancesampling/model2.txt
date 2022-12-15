@@ -1,0 +1,28 @@
+
+model {
+  
+  # Abundance Priors
+    beta0 ~ dunif(-10,10) # intercept
+ 
+ # Detection priors
+    alpha0 ~ dunif(-10,10) # intercept
+     
+      #specify abundance model - measure abundance of species at the sites
+      # using lambda because this is a common symbol for species richness model
+      log(lambda) <- beta0    
+      
+        #specify detection probability equation - probability of detecting species in the community 
+        logit(p) <- alpha0 
+    
+ # Likelihood
+    for (i in 1:M){
+      # R is richness
+      R[i] ~ dpois(lambda) 
+      
+      for (j in 1:J){
+      
+        S[i,j] ~ dbin(p, R[i]) # Observation model
+      }
+    }
+}
+
