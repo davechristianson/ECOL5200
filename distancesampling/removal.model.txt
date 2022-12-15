@@ -1,0 +1,24 @@
+ model {
+  #Prior Dist. 
+  p0 ~ dunif(0,1)
+  alpha0 <- logit(p0)
+  beta0 ~ dnorm(0,0.01)
+     # Conditional multinomial cell probabilities
+logit(p) <- alpha0 
+pi[1] <- p
+pi[2] <- p*(1-p)
+pi[3] <- p*(1-p)*(1-p)
+pi0 <- 1 - (pi[1] + pi[2] + pi[3]) 
+pcap <- 1 - pi0
+pic <- pi/pcap
+for(i in 1:M){ # Loop over sites
+  # Model specification, three parts:
+y[i,] ~ dmulti(pic,n[i])
+n[i] ~ dbin(pcap, N[i])
+N[i] ~ dpois(lambda[i])
+
+
+log(lambda[i])<- beta0
+}
+}
+

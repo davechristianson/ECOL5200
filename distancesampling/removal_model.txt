@@ -1,0 +1,32 @@
+
+model {
+# Prior distributions
+p0 ~ dunif(0,1)
+alpha0 <- logit(p0)
+alpha1 ~ dnorm(0, 0.01)
+beta0 ~ dnorm(0, 0.01)
+beta1 ~ dnorm(0, 0.01)
+beta2 ~ dnorm(0, 0.01)
+beta3 ~ dnorm(0, 0.01)
+# Conditional multinomial cell probabilities
+pi[1] <- p
+pi[2] <- p*(1-p)
+pi[3] <- p*(1-p)*(1-p)
+pi0 <-  1 - (pi[1] + pi[2] + pi[3]) # probability of never being detected
+pcap <- 1 - pi0
+pic <- pi/pcap
+# logit-linear model for detection: understory cover effect
+logit(p) <- alpha0
+for(i in 1:M){ # Loop over sites
+# Model specification, three parts:
+y[i,] ~ dmulti(pic,n[i])   # removal counts are derived from the conditional cell
+# probabilities and total count at each site
+# cell probabilities
+n[i] ~ dbin(pcap, N[i]) # component 2 is a model for the
+# observed sample size
+N[i] ~ dpois(lambda[i]) # component 3 is the process model
+# log-linear model for abundance: UFC D TRBA D UFC:TRBA
+log(lambda[i]) <- beta0
+}
+}
+

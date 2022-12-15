@@ -1,0 +1,20 @@
+
+model {
+  # Abundance Priors
+    beta0 ~ dunif(-10,10) # intercept
+    
+ # Detection priors
+    alpha0 ~ dunif(-10,10) # intercept
+    log(lambda) <- beta0 
+    logit(p) <- alpha0 
+    
+ # Likelihood
+    for (i in 1:M){           # vary by site
+      N[i] ~ dpois(lambda) 
+      for (j in 1:J){         # vary by replicate
+        C[i,j] ~ dbin(p, N[i]) # Observation model
+      } # end of J loop
+    }# end of M loop
+
+}
+

@@ -1,0 +1,20 @@
+
+model {
+
+  # Prior distributions
+  beta0 ~ dunif(-10,10)
+  alpha0 ~ dunif(-10,10)
+
+  # Derived values
+  logit(p) <- alpha0   # intercept term for abundance on logit scale
+  log(lambda) <- beta0
+
+  # MODEL
+  for (i in 1:M){
+    for (j in 1:J){
+      C[i,j] ~ dbinom(p,N[i])  # counts derived from the binomial distribution 
+    }
+    N[i] ~ dpois(lambda)
+  }
+}
+

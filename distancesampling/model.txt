@@ -6,46 +6,70 @@ mean.lam <- exp(beta0)
 beta1 ~ dnorm(0, 0.01) # Coefficient of roads on lambda.group
 beta2 ~ dnorm(0,0.01) # Coefficient of public land
 phi0 ~ dunif(0,1) # Probability of availability
-alpha0 <- exp(phi0)/(1+exp(phi0))
+
+
+alpha0 ~ dnorm(0,0.01)
 alpha1 ~ dnorm(0,0.01)
 alpha2 ~ dnorm(0,0.01)
-sigma ~ dunif(0.01,5) # Distance function parameter
+#sigma ~ dunif(0.01,5) # Distance function parameter
 gamma0 ~ dnorm(0,0.01)
 gamma1 ~ dnorm(0,0.01)
 gamma2 ~ dnorm(0,0.01)
-
+sd~dunif(0,10)
+tau<-1/pow(sd,2)
 r ~ dunif(0,10)
 r.lam ~ dunif(0,10)
 
-  for(b in 1:nD){
-    log(g[b]) <- -midpt[b]*midpt[b]/(2*sigma*sigma) # half-normal
-    f[b] <- delta/B # density function
-    cellprobs[b] <- g[b]*f[b]
-    cellprobs.cond[b] <- cellprobs[b]/sum(cellprobs[1:nD])
-  }
-  cellprobs[nD+1] <- 1-sum(cellprobs[1:nD])
 
   for (s in 1:nsites) {
-    
-    logit(phi[s]) <- alpha0 + alpha1*roads[s] + alpha2*land[s]
-    for (k in 1:nreps[s]) {
-      pdet[s,k] <- sum(cellprobs[1:nD]) # Distance class probabilities
-      #pmarg[s,k] <- pdet[s,k]*phi[s] # Marginal probability
-      g3d[s,1:nD,k] ~ dmulti(cellprobs.cond[1:nD], gobs[s,k])
-      #gobs[s,k] ~ dbin(pdet[s,k], Gavail[s,k])
-      gobs[s,k] ~ dpois(nobs[s,k]/gamma[s])
-    } 
+    log(sigma[s])<- alpha0+alpha1*roads[s]+alpha2*land[s]
+  
+    for(b in 1:nD){
+      log(g[b,s]) <- -midpt[b]*midpt[b]/(2*sigma[s]*sigma[s]) # half-normal
+      f[b,s] <- delta/B # density function
+      cellprobs[b,s] <- g[b,s]*f[b,s]
+      cellprobs.cond[b,s] <- cellprobs[b,s]/sum(cellprobs[1:nD,s])
+    }
+    cellprobs[nD+1,s] <- 1-sum(cellprobs[1:nD,s])
 
-    N[s] ~ dnegbin(probs.lam[s], r.lam)
-    probs.lam[s] <- r.lam/(r.lam+lambda[s])
+    #logit(phi[s]) <- alpha0 + alpha1*roads[s] + alpha2*land[s]
+    
+    for (k in 1:nreps[s]) {
+      pdet[s,k] <- sum(cellprobs[1:nD,s]) # Distance class probabilities
+      g3d[s,1:nD,k] ~ dmulti(cellprobs.cond[1:nD,s], gobs[s,k])
+      
+      # Model  1: using standard model of group abundance multiplied by mean group size
+      gobs[s,k] ~ dbin(pdet[s,k], G[s])
+      
+      #Model 2:  lambda=individuals, Group abundance is Individual abundance divided by mean group size
+      #gobs[s,k] ~ dbin(pdet[s,k], G[s])
+      
+      # Model 3: lambda=indivduals, indivdiual det prob inherited from group det prob
+      #nobs[s,k] ~ dbin(pdet[s,k], N[s])
+      
+    } 
+    eps.site[s] ~ dnorm(0,tau)
     lambda[s] <- exp(llambda.lim[s])
     llambda.lim[s] <- min(250, max(-250, llambda[s])) # 'Stabilize' log
-    llambda[s] <- beta0 + beta1*roads[s] +beta2*land[s]
-    G[s] ~ dpois(N[s]/gamma[s]) # super-population of group sizes, is superpopulation/mean groupsize
+    llambda[s] <- log(area[s]) + beta0 + beta1*roads[s] +beta2*(exp(land[s])/(1+exp(land[s]))) + eps.site[s]
+    
+    #Model 1: lambda=groups, conventional model of group abundance multiplied by mean groups size
+    G[s] ~ dpois(lambda[s]) # super-population of group sizes, is superpopulation/mean groupsize
 
-    for (k in 1:K){
-      Gavail[s,k] ~ dbin(phi[s], G[s])
-    }
+    #Model 2:  lambda=individuals, Group abundance is Individual abundance divided by mean group size
+    #N[s] ~ dnegbin(probs.lam[s], r.lam)
+    #probs.lam[s] <- r.lam/(r.lam+lambda[s])
+    #G[s] ~ dpois(N[s]/gamma[s]) # super-population of group sizes, is superpopulation/mean groupsize
+
+    #Model 3:  lambda=indivduals, indivdiual det prob inherited from group det prob
+    #N[s] ~ dnegbin(probs.lam[s], r.lam)
+    #probs.lam[s] <- r.lam/(r.lam+lambda[s])
+
+    #for (k in 1:K){
+      #Gavail[s,k] ~ dbin(phi[s], G[s])
+      #Gavail[s,k] ~ dbin(phi0, G[s])
+    #}
+
 
   } 
 
@@ -54,11 +78,27 @@ r.lam ~ dunif(0,10)
   }
 
   for(s in 1:nsites){
+
     log(gamma[s]) <- gamma0 + gamma1*roads[s] + gamma2*land[s]
     probs[s]<-r/(r+gamma[s])
   }
   
   Ntot<-sum(N[])
   mean.gamma<-mean(gamma[])
+
+    log(gamma[s]) <- gamma0 + gamma1*roads[s] + gamma2*(exp(land[s])/(1+exp(land[s])))
+    #log(gamma[s]) <- gamma0 
+    probs[s]<-r/(r+gamma[s])
+  }
+  
+  #Model 1
+  Ntot<- sum(lambda[]*gamma[])
+  
+  #Model 2
+  #Ntot<-sum(N[])
+  
+  #Model 3
+  #Ntot<-sum(N[])
+
 
 } 
