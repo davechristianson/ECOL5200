@@ -5,6 +5,7 @@ library(extraDistr)
 library(nimble)
 library(mcmcplots)
 library(sf)
+library(jpeg)
 groups<-st_cast(st_read("ecol5200distance.gpkg",layer="groups"),to="POINT")
 
 # negative hypergeometric provide the number of samplings, without replacement befor
@@ -87,7 +88,9 @@ beta0<-log(mean.lam)
 beta1<-0.5
 lambda<-exp(beta0 + beta1*habitat)
 N<-rnbinom(nsites,size=2, mu=lambda)
-hist(N)
+jpeg("N_hist_sim.jpg",width=6.5,height=6.5,units="in",res=600)
+hist(N, main="",mar=c(5,5,1,1))
+dev.off()
 # determine number of groups
 mu<-22 #(mean group size minus 1)
 G<-apply(cbind(N,rpois(nsites, N/mu)+1),1,min) #realized group sizes, number of groups increase proportionally to population size, Number of groups must be <= population size
