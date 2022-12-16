@@ -43,7 +43,7 @@ set.seed(123456)
 # sorting simultaneously detected groups by size at each site, to determine the rank of indivdivals
 # here we are going to use the observed data to reconstruct the 'cutting' of population size N into G groups
 B<-400 # truncation distance
-groups<-groups[groups$Species=="pronghorn"&groups$dist_to_transect<B&groups$Total.Group.Size<400,]
+groups<-groups[groups$Species=="pronghorn"&groups$dist_to_transect<200,]
 
 
 # first confirm no strong bias against small groups at large distances
@@ -77,7 +77,9 @@ for(i in 1:length(groups$Total.Group.Size)){
 # ranking is the '1st' individual in a groups position in the larger population
 breaks<-lapply(exclusivegroups,cumsum)
 hist(unlist(breaks)[unlist(breaks)<400])
-
+jpeg("pronghorn_breakpoints.jpeg",height=6.5, width=6.5, units="in",res=600)
+hist(unlist(breaks),main="",xlab="Group Breakpoints (Cumulative Sums of Indviduals)")
+dev.off()
 # simulate population
 set.seed(123456)
 nsites<-100
