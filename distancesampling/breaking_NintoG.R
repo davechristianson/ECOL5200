@@ -6,9 +6,12 @@ library(nimble)
 library(mcmcplots)
 library(sf)
 library(jpeg)
+library(BiasedUrn)
 groups<-st_cast(st_read("ecol5200distance.gpkg",layer="groups"),to="POINT")
+B<-300 # truncation distance
+groups<-groups[groups$Species=="pronghorn"&groups$dist_to_transect<B,]
 
-# negative hypergeometric provide the number of samplings, without replacement befor
+# negative hypergeometric provide the number of samplings, without replacement before
 # r white balls are pulled from n black balls and m white balls
 # negative hypergeometric will max out at n + (r-1), because once all the black black balls have been
 # pulled, only white balls remain 
@@ -37,14 +40,17 @@ groups<- sample.int(N,ng,replace=F,prob=c(pcuts,rep(0,N-length(pcuts))))
 hist(diff(c(0,sort(groups),N)))
 grousizes<-diff(c(0,sort(groups),N))
 
+# Wallis Noncentral (Multivariate) Hypergeometric Distribution
+rMWNCHypergeo(nran=1,m=rep(1,482),n=5,odds=c)
+
+
+
 
 
 ## start simulation informed by data
 set.seed(123456)
 # sorting simultaneously detected groups by size at each site, to determine the rank of indivdivals
 # here we are going to use the observed data to reconstruct the 'cutting' of population size N into G groups
-B<-400 # truncation distance
-groups<-groups[groups$Species=="pronghorn"&groups$dist_to_transect<200,]
 
 
 # first confirm no strong bias against small groups at large distances
@@ -77,25 +83,64 @@ for(i in 1:length(groups$Total.Group.Size)){
 # now identify the 'ranking' of the first individual in each group 
 # ranking is the '1st' individual in a groups position in the larger population
 breaks<-lapply(exclusivegroups,cumsum)
-hist(unlist(breaks)[unlist(breaks)<400])
-jpeg("pronghorn_breakpoints.jpeg",height=6.5, width=6.5, units="in",res=600)
-hist(unlist(breaks),main="",xlab="Group Breakpoints (Cumulative Sums of Indviduals)")
+hist(unlist(breaks))
 dev.off()
-# simulate population
-set.seed(123456)
+jpeg("pronghorn_breakpoints.jpeg",height=6.5, width=6.5, units="in",res=600)
+hist(unlist(breaks),main="",xlab="Group Breakpoints (Cumulative Sums of Indviduals)",breaks=seq(0,500,1))
+dev.off()
+# same graph as above but cumulative sum of individuals as frequency
+hist(rep(unlist(breaks),unlist(breaks)),breaks=seq(0,500,1))
+
+# simulated group ranks (cumulative sums) using pronghorn group ranks
+# Wallis Noncentral (Multivariate) Hypergeometric Distribution
+rMWNCHypergeo(nran=1,m=rep(1,25),n=5,odds=as.numeric(table(factor(unlist(breaks),levels=1:488))),precision=0.1)
+
+# compare the function sample.int(replace = F) with Wallenius' Multivariate Noncentral Hypergometric
+# they are identical
+probs<-c(100,50,25,rep(1, 20),100,200)
+simsamp<-list()
+for(i in 1:10000){
+  simsamp[[i]]<-as.numeric(table(factor(sample.int(n=25,size=5,replace=F,prob=probs),levels=1:25)))
+}
+simsampmat<-do.call("rbind",simsamp)
+
+par(mfrow=c(3,1))
+plot(rowSums(rMWNCHypergeo(nran=10000,m=rep(1,25),n=5,odds=probs)))
+plot(colSums(simsampmat))
+plot(rowSums(rMFNCHypergeo(nran=10000,m=rep(1,25),n=5,odds=probs)))
+
+# now construct a new population of pronghorn using the observered cumultive sums
+simsamp<-list()
+for(i in 1:10000){
+  simsamp[[i]]<-as.numeric(table(factor(sample.int(n=488,size=5,replace=F,prob=as.numeric(table(factor(unlist(breaks),levels=1:488)))),levels=1:488)))
+}
+
+par(mfrow=c(2,1))
+plot(colSums(do.call("rbind",simsamp)))
+
+# now simulate population
+set.seed(1234567)
 nsites<-100
 habitat<-rnorm(nsites)
 mean.lam<-50
 beta0<-log(mean.lam)
-beta1<-0.5
+beta1<-0.33
 lambda<-exp(beta0 + beta1*habitat)
-N<-rnbinom(nsites,size=2, mu=lambda)
+hist(lambda)
+N<-rnbinom(nsites,size=5, mu=lambda)
+hist(N)
+dev.off()
 jpeg("N_hist_sim.jpg",width=6.5,height=6.5,units="in",res=600)
 hist(N, main="",mar=c(5,5,1,1))
 dev.off()
 # determine number of groups
-mu<-22 #(mean group size minus 1)
-G<-apply(cbind(N,rpois(nsites, N/mu)+1),1,min) #realized group sizes, number of groups increase proportionally to population size, Number of groups must be <= population size
+
+gamma0<-3
+mean.gam<-exp(gamma0)+1 #(mean group size)
+gamma1<--0.25
+gamma<-exp(gamma0+gamma1*habitat)
+
+G<-apply(cbind(N,rpois(nsites, N/(gamma+1))+1),1,min) #realized group sizes, number of groups increase proportionally to population size, Number of groups must be <= population size
 
 
 # now determine the groups at each site, using the 'breakpoints' from observed data
@@ -111,13 +156,25 @@ for(i in 1:nsites){
     GSlist[[i]]<-NULL
     DXlist[[i]]<-NULL
   }
+  else if(N[i]==1){ # if only one individual in the population, only 1 group is possible
+    breaklist[[i]]<-0
+    GSlist[[i]]<-1
+    DXlist[[i]]<-runif(1,1,B)
+  }
   else{
     breaklist[[i]]<-c(0,sort(sample.int(N[i]-1,size=G[i]-1,replace=F,prob=cuts[1:(N[i]-1)])))
     GSlist[[i]]<-diff(c(breaklist[[i]],N[i]))
     DXlist[[i]]<-runif(sum(unlist(GSlist[[i]])>0),1,B)
   }
 }
-hist(unlist(GSlist)) # group size distribution
+
+dev.off()
+jpeg("sim_vs_real_gs_dist.jpg",width=6.5,height=6.5,res=600,units="in")
+par(mfrow=c(2,1))
+hist(unlist(GSlist),breaks=seq(0,500,by=5)) # group size distribution in simulation
+hist(groups$Total.Group.Size,breaks=seq(0,500,by=5))
+dev.off()
+
 hist(unlist(DXlist)) # distance distrubtion (should be uniform)
 table(unlist(GSlist))
 unlist(lapply(GSlist,sum))==N
@@ -159,7 +216,13 @@ for(i in 1:nsites){
     Ylist[[i]]<-rbinom(G[i],1,Plist[[i]])
   }
 }
-plot(unlist(Plist)~unlist(DXlist))
+dev.off()
+jpeg("detp_vs_dist_and_gs_sim.jpeg",width=6.5,height=6.5,units="in",res=600)
+plot(unlist(Plist)~unlist(DXlist),cex=log(unlist(GSlist)+0.5),xlab="distance (m)",ylab="detection probability")
+dev.off()
+
+min(unlist(GSlist)) # no zeros, correct?
+mean(unlist(GSlist))
 
 # depending on the model fit, detections as vectors of unique observations may be desirable
 # or as a matrix of detections by site and distance class.
@@ -196,10 +259,11 @@ Section9p2p2_code <- nimbleCode({
   alpha1 ~ dunif(-10,10)
   beta0 ~ dunif(-10,10)
   beta1 ~ dunif(-10,10)
-  lambda.group ~ dgamma(0.1, 0.1)
-  r ~ dunif(0,1000)
-  r.group ~ dunif(0,10)
-  probs.lambda.group<-r.group/(r.group+lambda.group)
+  gamma0 ~ dgamma(0.1, 0.1) 
+  gamma1 ~ dunif(-10,10)
+  #r ~ dunif(0,50)
+  #r.gamma ~ dunif(0,20)
+  
   ## psi is a derived parameter
   psi <- sum(lambda[1:nsites])/(ngroup+nz)
   
@@ -207,7 +271,8 @@ Section9p2p2_code <- nimbleCode({
   for(i in 1:(ngroup+nz)){
     z[i] ~ dbern(psi)                   # Data augmentation variables
     d[i] ~ dunif(0, B)                  # Distance is uniformly distributed
-    groupsize[i] ~ dnegbin(probs.lambda.group,r.group)  # Group size is Poisson
+    #groupsize[i] ~ dnegbin(probs.gamma[site[i]],r.gamma)  # Group size is Poisson
+     
     
     log(sigma[i]) <- alpha0 +  alpha1*log(groupsize[i]+1)
     mu[i] <- z[i]*exp(-d[i]*d[i]/(2*sigma[i]*sigma[i])) #p dep on dist class 
@@ -222,14 +287,20 @@ Section9p2p2_code <- nimbleCode({
   for(s in 1:nsites){
     ## Model for population size of groups
     N[s] ~ dpois(lambda[s])
-    probs.lambda[s] <- r/(r+lambda[s])
-    log(lambda[s])<- beta0 + beta1*habitat[s]
-    site.probs[s]<- lambda[s]/sum(lambda[1:nsites])
+    #probs.lambda[s] <- r/(r+lambda[s])
+    log(lambda[s]) <- beta0 + beta1*habitat[s]
+    site.probs[s] <- lambda[s]/sum(lambda[1:nsites])
+    log(gamma[s]) <- gamma0 + gamma1*habitat[s]
+    #probs.gamma[s]<-r.gamma/(r.gamma+gamma[s])
+  }
+  for(i in 1:(ngroup+nz)){
+    groupsize[i] ~ dpois(gamma[site[i]])
   }
   
   # Derived quantities
   G <- sum(z[1:(ngroup+nz)])        # Total number of groups
   Ntotal <- sum(zg[1:(ngroup+nz)])  # Total population size (all groups combined)
+  mean.sig<-mean(sigma[1:ngroup])
 }
 )
 
@@ -241,8 +312,8 @@ inits <- function(){list(alpha0=0,     ## Inits as a function
                          beta1=0, 
                          z=zst)}
 
-params <- c("alpha0", "alpha1", "beta0", "beta1", "psi", "Ntotal", "G", 
-            "lambda.group","r","r.group")                     ## define params for monitors
+params <- c("mean.sig","alpha0", "alpha1", "beta0", "beta1", "psi", "Ntotal", "G", 
+            "gamma0","gamma1")                     ## define params for monitors
 
 # Call NIMBLE, plot posterior distributions
 out1 <- nimbleMCMC(code = Section9p2p2_code, 
@@ -254,8 +325,7 @@ out1 <- nimbleMCMC(code = Section9p2p2_code,
                    samplesAsCodaMCMC = TRUE)
 # this is the classic DA approach where lambda estimates group abundance
 
-library(mcmcplots)
-colnames(out1)
+
 mcmcplot(out1)
 print(out1,dig=3)
 samplesSummary(out1,round=3)
