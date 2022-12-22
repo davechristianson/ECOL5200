@@ -10,38 +10,67 @@ library(dplyr)
 # 'gamma' is the expected groupsize. 
 # 'lambda' is the expected population size (negatively binomially distributed) at a site. 
 # 'size' is the dispersion parameter for the negative binomial . 
-
-
+# this function fails multiple times and you may need to keep trying it or reduce nn to get it to work.
+rm(list=ls())
 
 sample.int_v<-Vectorize(sample.int)
 
-make_group_pis<-function (plothist=T,
-                          n=500, 
+#
+
+
+make_group_pis<-function (plothist=T, # inpecition of the groupsize distribution resulting from selection of parameters below. this likes to fail so may want to make F.
                           r=1, 
-                          m= 25,
-                          nn=10000,
-                          gamma=10,
-                          lambda=50,
-                          size=1) {
-  break_pis<-table(factor(rnhyper(nn=nn,n=n,m=m,r=r), levels=seq(1,(n+r))))/nn
-  break_pis<-break_pis+(0.5/nn)
-
+                          nn=100000, # number of random draws from the negative hypergeometric from which to calculate probabilities.
+                          m=10,
+                          NN=10000, # how many simulated populations?
+                          tgamma=6,  # idealized mean group size in an unrestricted populatoin - 1. This is used to constrain the expected number of groups at a site based on population size. however number of groups is a poisson random variable at rate N/(gamma+1). When gammma is near N, the realized mean group size will be much smaller because sites with much < gamma individuals will still count as at least 1 group (decreasing mean) and because the right tail is much longer than left tail in Poissons centered near 1. 
+                          lambda=25, # for fitting purposes, mean abundance at a site
+                          size=5) # for fitting purposes, ind. abundance dispersion parameter in neg binomial, the equivalent of r in JAGS parameterization.
+  {
+  N<-rnbinom(NN,size=size,mu=lambda) # realized abundance at NN sites
+  break_pis0<-table(factor(rnhyper(nn=nn,n=max(N),m=m,r=r), levels=seq(1,(max(N)+r))))/nn
+  
   if(plothist){
-    N<-rnbinom(nn,size=size,mu=lambda)
-    G<-apply(cbind(rpois(n=nn,lambda=N/gamma)+1,N),1,min) # truncation when N is not 0 (at least 1 group when N>0)
-    
-    break_pis_list<-lapply(N[N>0], function(x) head(break_pis, n=x))
-    breaks_list<-sample.int_v(n=N[N>0],size=G[N>0]-1,replace=F,prob=break_pis_list) # there are G-1 breaks in a population separated into G groups
-    breaks_list_sort<-lapply(breaks_list,sort)
-    gs_list<-lapply(mapply(function(x,y) c(0,x,y),breaks_list_sort,N[N>0]),diff)
-    hist(unlist(gs_list))
+    max(N)
+  G<-apply(cbind(rpois(n=NN,lambda=N/(tgamma+1))+1,N),1,min) # number of groups <= N and no groups when N = 0.
+  break_pis_list<-lapply(N[N>0], function(x) head(break_pis0, n=x)) # ragged list of pi's
+  breaks_list<-try(sample.int_v(n=N[N>0],size=G[N>0]-1,replace=F,prob=break_pis_list),silent=T) # there are G-1 breaks in a population separated into G groups
+  breaks_list_sort<-lapply(breaks_list,sort)
+  gs_list<-lapply(mapply(function(x,y) c(0,x,y),breaks_list_sort,N[N>0]),diff)
+  par(fig = c(0,1,0,1))  
+  hist(unlist(gs_list),breaks=seq(0,max(unlist(gs_list),na.rm=T),by=1),main="Distribution of groups sizes with given N and idealized gamma",xlab="Group size")
+  figdims<-par("usr")
+  text(0.25*figdims[2],0.9*figdims[4],paste0("mean group size: ",round(mean(unlist(gs_list)[unlist(gs_list)!=0],na.rm=T),1)))
+  text(0.25*figdims[2],0.85*figdims[4],paste0("max group size: ",round(max(unlist(gs_list)[unlist(gs_list)!=0],na.rm=T),1)))
+  text(0.25*figdims[2],0.8*figdims[4],paste0("var group size: ",round(var(unlist(gs_list)[unlist(gs_list)!=0],na.rm=T),1)))
+  text(0.25*figdims[2],0.75*figdims[4],paste0("mean pop size: ",round(mean(unlist(N),na.rm=T),0)))
+  text(0.25*figdims[2],0.7*figdims[4],paste0("max pop size: ",round(max(unlist(N),na.rm=T),0)))
+  text(0.25*figdims[2],0.65*figdims[4],paste0("var pop size: ",round(var(unlist(N),na.rm=T),0)))
+  text(0.25*figdims[2],0.6*figdims[4],paste0("mean # of groups: ",round(mean(unlist(G),na.rm=T),1)))
+  text(0.25*figdims[2],0.55*figdims[4],paste0("mean # of groups (occupied sites): ",round(mean(unlist(G)[N>0],na.rm=T),1)))
+  text(0.25*figdims[2],0.5*figdims[4],paste0("var # of groups",round(var(unlist(G),na.rm=T),1)))
+  par(fig = c(0.5,1, 0.5, 0.9), new = T)  
+  hist(unlist(N),main=paste0("Distr. of ", NN," pop. sizes"),xlab='N') 
+  par(fig = c(0.5,1, 0.1, 0.5), new = T)  
+  hist(unlist(G),main=paste0("Distr. of ", NN," group abund."),breaks=seq(0,max(unlist(G))),xlab='G') 
   }
-  else{
-  }
-  return(break_pis)
-
+  return(break_pis0)
 }
 
-test<-make_group_pis()
 
+
+# likes to fail when visualizing group size distribution. try 100 times, reducing NN by 5% each time, before giving up or set plothist=F (which always works).
+dev.off()
+my_pis<-NULL
+attempt<-0
+NN<-10526
+while( is.null(my_pis) && attempt <= 100 ) {
+  attempt <- attempt + 1
+  NN<-ceiling(0.95*NN)
+  print(paste0("attempt ",attempt,": NN = ", NN))
+  try(
+    my_pis<- make_group_pis(NN=NN,lambda=25,tgamma=6,m=1),silent=T
+  )
+} 
+hist(rnhyper(100000,1000,10,1))
 
