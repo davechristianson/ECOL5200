@@ -15,24 +15,25 @@ rm(list=ls())
 
 sample.int_v<-Vectorize(sample.int)
 
+library(extraDistr)
+library(dplyr)
 #
 
 
 make_group_pis<-function (plothist=T, # inpecition of the groupsize distribution resulting from selection of parameters below. this likes to fail so may want to make F.
                           r=1, 
                           nn=100000, # number of random draws from the negative hypergeometric from which to calculate probabilities.
-                          m=10,
                           NN=10000, # how many simulated populations?
                           tgamma=6,  # idealized mean group size in an unrestricted populatoin - 1. This is used to constrain the expected number of groups at a site based on population size. however number of groups is a poisson random variable at rate N/(gamma+1). When gammma is near N, the realized mean group size will be much smaller because sites with much < gamma individuals will still count as at least 1 group (decreasing mean) and because the right tail is much longer than left tail in Poissons centered near 1. 
                           lambda=25, # for fitting purposes, mean abundance at a site
                           size=5) # for fitting purposes, ind. abundance dispersion parameter in neg binomial, the equivalent of r in JAGS parameterization.
   {
   N<-rnbinom(NN,size=size,mu=lambda) # realized abundance at NN sites
-  break_pis0<-table(factor(rnhyper(nn=nn,n=max(N),m=m,r=r), levels=seq(1,(max(N)+r))))/nn
+  break_pis0<-table(factor(rnhyper(nn=nn,m=max(N),n=max(N)*tgamma,r=r), levels=seq(1,(max(N)+r))))/nn
   
   if(plothist){
-    max(N)
-  G<-apply(cbind(rpois(n=NN,lambda=N/(tgamma+1))+1,N),1,min) # number of groups <= N and no groups when N = 0.
+
+  G<-apply(cbind(rpois(n=NN,lambda=N/(tgamma))+1,N),1,min) # number of groups <= N and no groups when N = 0.
   break_pis_list<-lapply(N[N>0], function(x) head(break_pis0, n=x)) # ragged list of pi's
   breaks_list<-try(sample.int_v(n=N[N>0],size=G[N>0]-1,replace=F,prob=break_pis_list),silent=T) # there are G-1 breaks in a population separated into G groups
   breaks_list_sort<-lapply(breaks_list,sort)
@@ -69,8 +70,9 @@ while( is.null(my_pis) && attempt <= 100 ) {
   NN<-ceiling(0.95*NN)
   print(paste0("attempt ",attempt,": NN = ", NN))
   try(
-    my_pis<- make_group_pis(NN=NN,lambda=25,tgamma=6,m=1),silent=T
+    my_pis<- make_group_pis(NN=NN,lambda=25,tgamma=10),silent=T
   )
 } 
+hist(rnbinom(100000,size=1000,mu=30))
 hist(rnhyper(100000,1000,10,1))
 
