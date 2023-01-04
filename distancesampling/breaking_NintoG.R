@@ -7,9 +7,6 @@ library(mcmcplots)
 library(sf)
 library(jpeg)
 library(BiasedUrn)
-groups<-st_cast(st_read("ecol5200distance.gpkg",layer="groups"),to="POINT")
-B<-300 # truncation distance
-groups<-groups[groups$Species=="pronghorn"&groups$dist_to_transect<B,]
 
 # negative hypergeometric provide the number of samplings, without replacement before
 # r white balls are pulled from n black balls and m white balls
@@ -41,9 +38,12 @@ hist(diff(c(0,sort(groups),N)))
 grousizes<-diff(c(0,sort(groups),N))
 
 # Wallis Noncentral (Multivariate) Hypergeometric Distribution
-rMWNCHypergeo(nran=1,m=rep(1,482),n=5,odds=c)
+#rMWNCHypergeo(nran=1,m=rep(1,482),n=5,odds=c)
 
 
+groups<-st_cast(st_read("ecol5200distance.gpkg",layer="groups"),to="POINT")
+B<-300 # truncation distance
+groups<-groups[groups$Species=="pronghorn"&groups$dist_to_transect<B,]
 
 
 
@@ -92,8 +92,8 @@ dev.off()
 hist(rep(unlist(breaks),unlist(breaks)),breaks=seq(0,500,1))
 
 # simulated group ranks (cumulative sums) using pronghorn group ranks
-# Wallis Noncentral (Multivariate) Hypergeometric Distribution
-rMWNCHypergeo(nran=1,m=rep(1,25),n=5,odds=as.numeric(table(factor(unlist(breaks),levels=1:488))),precision=0.1)
+# Wallis Noncentral (Multivariate) Hypergeometric Distribution only allows 32 bins by default
+rMWNCHypergeo(nran=1,m=rep(1,488),n=5,odds=as.numeric(table(factor(unlist(breaks),levels=1:488))),precision=0.1)
 
 # compare the function sample.int(replace = F) with Wallenius' Multivariate Noncentral Hypergometric
 # they are identical
@@ -118,11 +118,15 @@ for(i in 1:10000){
 par(mfrow=c(2,1))
 plot(colSums(do.call("rbind",simsamp)))
 
+#Compare populations of 1 10 and 100 individuals
+#Group sizes of mean of 1, 2 and 10 individuals
+
+
 # now simulate population
 set.seed(1234567)
-nsites<-100
+nsites<-1000
 habitat<-rnorm(nsites)
-mean.lam<-50
+mean.lam<-1
 beta0<-log(mean.lam)
 beta1<-0.33
 lambda<-exp(beta0 + beta1*habitat)
@@ -133,15 +137,48 @@ dev.off()
 jpeg("N_hist_sim.jpg",width=6.5,height=6.5,units="in",res=600)
 hist(N, main="",mar=c(5,5,1,1))
 dev.off()
+
 # determine number of groups
+# there are several approaches that could be used.  
+# one appproach is to start with the idealized group size and then extract that from N
+# here, gammatr and gammatr0 refer to  group size - 1 (0 truncated) 
+gamma0_tr<-1.5
 
-gamma0<-3
-mean.gam<-exp(gamma0)+1 #(mean group size)
-gamma1<--0.25
-gamma<-exp(gamma0+gamma1*habitat)
 
-G<-apply(cbind(N,rpois(nsites, N/(gamma+1))+1),1,min) #realized group sizes, number of groups increase proportionally to population size, Number of groups must be <= population size
+# sim1: Group size held constant: G increase with N.  simplest formulation, mean group size is completely independent of N.  G must increase as N increases
+mu_GS_tr<-exp(gamma0_tr)
+G<-apply(cbind(N,rpois(nsites, N/(mu_GS_tr+1))+1),1,min) #realized group sizes, number of groups increase proportionally to population size, Number of groups must be <= population size, first +1 is to account for -1 in group size model, second +1 is to truncate the poisson at 1.
+real_mu_site_GS<-N[N!=0]/G[N!=0]
+real_mu_GS<-mean(real_mu_site_GS) # realized mean group size at every site, not = gamma because of the schoastic random poisson draw of group number and the marginal constrations imposed by N
+plot(real_mu_site_GS~N[N!=0])
+plot(G[N!=0]~N[N!=0])
+plot(mu_GS_tr~N[N!=0])
 
+summary(glm(real_mu_site_GS~N[N!=0],family=quasipoisson))
+
+
+
+# Sim 2: Number of groups held constant. group size increases proportionately by (1/G or 1/5 here) with increasing density (group abundance is random poisson draw at constant rate), 
+mu_G<-5
+G<-apply(cbind(N,rpois(nsites, mu_G)+1),1,min) #realized group sizes, number of groups increase proportionally to population size, Number of groups must be <= population size
+real_mu_site_GS<-N[N!=0]/G[N!=0]
+real_mu_GS<-mean(real_mu_site_GS)
+plot(real_mu_site_GS~N[N!=0])
+plot(G[N!=0]~N[N!=0])
+coef(glm(real_mu_site_GS~N[N!=0],family="quasipoisson"))
+coef(lm(real_mu_site_GS~N[N!=0]))
+
+
+# sim 3: inverse response: mean group size covaries inversely with N via the same site covariate that positively influences N
+# this is indirect negative covariation in density and group sizes. number of groups must increase as N increases
+gamma1_tr<--0.5
+mu_GS_tr<-exp(gamma0 + gamma1_tr*habitat)
+G<-apply(cbind(N,rpois(nsites, N/(mu_GS_tr+1))+1),1,min) #realized group sizes, number of groups increase proportionally to population size, Number of groups must be <= population size
+real_mu_site_GS<-N[N!=0]/G[N!=0]
+real_mu_GS<-mean(real_mu_site_GS)
+plot(real_mu_site_GS~N[N!=0])
+plot(G[N!=0]~N[N!=0])
+plot(mu_GS_tr~N[N!=0])
 
 # now determine the groups at each site, using the 'breakpoints' from observed data
 cuts<-table(factor(unlist(breaks),levels=1:max(N)))/sum(unlist(breaks))
@@ -246,6 +283,19 @@ d <- c(d, rep(NA,nz))    # Their distance data are missing ...
 groupsize <- c(gs, rep(NA,nz)) # .... as is their size
 zst <- y                        # Starting values for data augmentation variable
 
+# other pieces of data needed in some models
+# number of groups observed at each site
+gobs <- apply(ymat, 1, sum)  # Total detections per site and occasion
+
+# number of individuals observed at each site
+nobs<-as.numeric(tapply(gs,factor(gsite,levels=1:nsites),sum,na.rm=T))
+nobs[is.na(nobs)]<-0
+
+###########################################
+## MODEL 1 conventional DA approach #######
+###########################################
+
+
 ## Bundle data and produce summary
 str(win.data <- list (y=y, B=B, ngroup=ngroup, nsites=nsites, d=d, habitat=habitat,site=site, nz=nz, groupsize=groupsize-1))
 
@@ -340,7 +390,6 @@ plot(log(unlist(GSlist)),unlist(Plist))
 ####################################
 #Traditional mutinomial formulation of HDS, N = G*gamma
 
-gobs <- apply(ymat, 1, sum)  # Total detections per site and occasion
 str( data3 <- list(y=ymat, nsites=nsites, nD=nD, midpt=midpt, delta=delta, habitat=habitat, B=B, gobs = gobs,ngroup=ngroup,site=gsite,groupsize=gs-1) )
 
 
@@ -404,7 +453,7 @@ Section9p5p4p1_code <- nimbleCode({
 
 # Assemble the initial values and parameters to save for JAGS
 
-Gst <- gobs  +2
+Gst <- gobs+2
 inits3 <- function(){
   list(G=Gst, sigma = 327, beta0=log(2), beta1=0.25)
 }
@@ -437,10 +486,8 @@ mcmcplot(out3)
 ####################################
 #using pdet to estimate N from total nobs at a site
 
-nobs<-as.numeric(tapply(gs,factor(gsite,levels=1:nsites),sum,na.rm=T))
-nobs[is.na(nobs)]<-0
 
-str( data4 <- list(y=ymat, nsites=nsites, nD=nD, midpt=midpt, delta=delta, habitat=habitat, B=B, gobs = gobs,ngroup=ngroup,site=gsite,groupsize=gs-1), nobs=nobs)
+str( data4 <- list(y=ymat, nsites=nsites, nD=nD, midpt=midpt, delta=delta, habitat=habitat, B=B, gobs = gobs,site=gsite, nobs=nobs))
 
 
 ## Define model in BUGS
@@ -452,10 +499,10 @@ PdetToNobsCode <- nimbleCode({
   beta1 ~ dnorm(0, 0.01)  # Coefficient of lambda on habitat
   #phi ~ dunif(0,1)        # Probability of availability
   sigma ~ dunif(0.01,800)   # Distance function parameter
-  gamma0 ~ dnorm(0,0.01)
-  gamma1 ~ dnorm(0,0.01)
-  r ~ dunif(0,10)
-  r.group ~ dunif(0,10)
+  #gamma0 ~ dnorm(0,0.01)
+  #gamma1 ~ dnorm(0,0.01)
+  r ~ dunif(0.9,7)
+  #r.group ~ dunif(0,10)
   # Detection probs for each distance interval and related things
   for(b in 1:nD){
     log(g[b]) <- -midpt[b]*midpt[b]/(2*sigma*sigma) # half-normal 
@@ -467,12 +514,12 @@ PdetToNobsCode <- nimbleCode({
   
   for (s in 1:nsites) {
     y[s,1:nD] ~ dmulti(cellprobs.cond[1:nD], gobs[s])
-    gobs[s] ~ dbin(pdet[s], G[s])
-    G[s] ~ dnegbin(probs.lambda[s],r)
+    #gobs[s] ~ dbin(pdet[s], G[s])
+    #G[s] ~ dnegbin(probs.lambda[s],r)
     
     
-    N[s] ~ dpois(lambda[s])
-    probs.lambda[s]<-  r/(r+(lambda[s]/gamma[s]))
+    N[s] ~ dnegbin(probs.lambda[s],r)
+    probs.lambda[s]<-  r/(r+(lambda[s]))
     pdet[s] <- sum(cellprobs[1:nD])   # Distance class probabilities
     #for (k in 1:K) {
     #
@@ -482,7 +529,8 @@ PdetToNobsCode <- nimbleCode({
     #
     # Model part 3: total number of detections:
     #
-    # nobs[s,k] ~ dbin(pdet[s,k], Navail[s,k]) # Alternative formulation
+    
+    nobs[s] ~ dbin(pdet[s], N[s]) # Alternative formulation
     # Model part 2: Availability. Not used in this model but simulated.
     #Navail[s,k] ~ dbin(phi, M[s]) 
     #}  # end k loop
@@ -491,18 +539,17 @@ PdetToNobsCode <- nimbleCode({
   }  # End s loop
   
   
-  for(i in 1:ngroup){
-    groupsize[i] ~ dnegbin(probs[site[i]],r.group)
-  }
-  for(s in 1:nsites){
-    log(gamma[s]) <- gamma0 + gamma1*habitat[s]
-    probs[s]<-r.group/(r.group+gamma[s])
-  }
+  #for(i in 1:ngroup){
+  #  groupsize[i] ~ dnegbin(probs[site[i]],r.group)
+  #}
+  #for(s in 1:nsites){
+  #  log(gamma[s]) <- gamma0 + gamma1*habitat[s]
+  #  probs[s]<-r.group/(r.group+gamma[s])
+  #}
   
   # Derived quantities
-  mean.gamma<-mean(gamma[1:nsites])
-  Ntot<- sum(N[1:nsites])
-  Gtot<- sum(G[1:nsites])
+  #mean.gamma<-mean(gamma[1:nsites])
+  #Ntot<- sum(N[1:nsites])
 } # End model
 )
 
@@ -510,17 +557,29 @@ PdetToNobsCode <- nimbleCode({
 # Assemble the initial values and parameters to save for JAGS
 
 Nst <- nobs  + 10
-Gst <- gobs +2
-inits4 <- function(){
-  list(N=Nst, G=Gst, sigma = 327, gamma0 = log(10), beta0=log(2), beta1=0.25,r.group=0.5)
-}
-params4 <- c("sigma", "beta0", "mean.lam", "beta1", "Ntot","Gtot","gamma0","r","r.group","mean.gamma")
+#Gst <- gobs +2
+inits4 <-  list(N=Nst, sigma = 250, beta0=log(50), beta1=0.25, r=3)
+
+params4 <- c("sigma", "pdet","mean.lam","beta1")
 
 # MCMC settings
 ni <- 60000   ;   nb <- 10000   ;   nt <- 100   ;   nc <- 5
 
 # Run nimble:
 # Some additional init may be needed for nimble.
+
+nmodel4<-nimbleModel(
+  code = PdetToNobsCode,
+  constants = data4,
+  inits = inits4)
+
+
+comp4<-configureMCMC(nmodel4)
+
+comp4$removeSamplers(c("r","beta0","beta1"))
+
+comp4$addSampler(target=c("r","beta0","beta1"),type="AF_slice")
+
 out4 <- nimbleMCMC(
   code = PdetToNobsCode,
   constants = data4,
@@ -534,5 +593,104 @@ out4 <- nimbleMCMC(
 
 samplesSummary(out4,round=3)
 mcmcplot(out4)
+
+
+
+
+
+
+####################################
+#55555555555555555555555555555555555#
+####################################
+# mutinomial formulation of HDS, N = G*gamma but with nobs
+
+str( data5 <- list(y=ymat, nsites=nsites, nD=nD, midpt=midpt, delta=delta, habitat=habitat, B=B, gobs = gobs,ngroup=ngroup,site=gsite,groupsize=gs-1,nobs=nobs) )
+
+
+## Define model in BUGS
+
+PdetNobsGammaCode <- nimbleCode({
+  # Prior distributions
+  beta0 ~ dnorm(0, 0.01)  # Intercept for log(lambda)
+  mean.lam <- exp(beta0)
+  beta1 ~ dnorm(0, 0.01)  # Coefficient of lambda on habitat
+  #phi ~ dunif(0,1)        # Probability of availability
+  sigma ~ dunif(0.01,800)   # Distance function parameter
+  gamma0 ~ dnorm(0,0.01)
+  r.group ~ dunif(0.5,5)
+
+  # Detection probs for each distance interval and related things
+  for(b in 1:nD){
+    log(g[b]) <- -midpt[b]*midpt[b]/(2*sigma*sigma) # half-normal 
+    f[b] <- 1/nD    # radial density function
+    cellprobs[b] <- g[b]*f[b]
+    cellprobs.cond[b] <- cellprobs[b]/sum(cellprobs[1:nD])
+  }
+  cellprobs[nD+1]<- 1-sum(cellprobs[1:nD])
+  pdet <- sum(cellprobs[1:nD])
+  
+  for (s in 1:nsites) {
+    y[s,1:nD] ~ dmulti(cellprobs.cond[1:nD], gobs[s]) # detection probability of individuals resolved
+    #pdet[s] <- sum(cellprobs[1:nD])   # Distance class probabilities
+    #for (k in 1:K) {
+    #
+    #pmarg[s,k] <- pdet[s,k]*phi         # Marginal probability
+    
+    # Model part 4: distance class frequencies
+    #
+    # Model part 3: total number of detections:
+    #
+    nobs[s] ~ dbin(pdet, G[s]*gamma[s]) # Alternative formulation
+    # Model part 2: Availability. Not used in this model but simulated.
+    #Navail[s,k] ~ dbin(phi, M[s]) 
+    #}  # end k loop
+    # Model part 1: Abundance model
+    G[s] ~ dpois(lambda[s])    
+    log(lambda[s]) <- beta0 + beta1*habitat[s]
+  }  # End s loop
+  
+  
+  for(i in 1:ngroup){
+    groupsize[i] ~ dnegbin(probs[site[i]],r.group)
+  }
+  
+  for(s in 1:nsites){
+    log(gamma[s]) <- gamma0 
+    probs[s]<-r.group/(r.group+gamma[s])
+  }
+  
+  # Derived quantities
+  Gtot <- sum(G[1:nsites])
+  Ntot<- sum(G[1:nsites]*(1+gamma[1:nsites]))
+  
+} # End model
+)
+
+
+# Assemble the initial values and parameters to save for JAGS
+
+Gst <- gobs  +2
+inits5 <- function(){
+  list(G=Gst, sigma = 211, beta0=log(3), beta1=0.25,r.group=1)
+}
+params5 <- c("sigma", "beta0", "mean.lam", "gamma0","beta1","Ntot","Gtot")
+# MCMC settings
+ni <- 60000   ;   nb <- 10000   ;   nt <- 100   ;   nc <- 5
+
+# Run nimble:
+# Some additional init may be needed for nimble.
+out5 <- nimbleMCMC(
+  code = PdetNobsGammaCode,
+  constants = data5,
+  inits = inits5,
+  monitors = params5,
+  nburnin = nb,
+  niter = ni,
+  samplesAsCodaMCMC = TRUE
+)
+
+
+samplesSummary(out5,round=3)
+mcmcplot(out3)
 
 
