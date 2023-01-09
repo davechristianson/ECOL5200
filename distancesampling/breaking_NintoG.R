@@ -126,7 +126,7 @@ plot(colSums(do.call("rbind",simsamp)))
 set.seed(1234567)
 nsites<-1000
 habitat<-rnorm(nsites)
-mean.lam<-1
+mean.lam<-10
 beta0<-log(mean.lam)
 beta1<-0.33
 lambda<-exp(beta0 + beta1*habitat)
@@ -142,7 +142,7 @@ dev.off()
 # there are several approaches that could be used.  
 # one appproach is to start with the idealized group size and then extract that from N
 # here, gammatr and gammatr0 refer to  group size - 1 (0 truncated) 
-gamma0_tr<-1.5
+gamma0_tr<-1
 
 
 # sim1: Group size held constant: G increase with N.  simplest formulation, mean group size is completely independent of N.  G must increase as N increases
@@ -274,7 +274,7 @@ dclass<-(unlist(DClist)*unlist(Ylist))[unlist(Ylist)!=0]
 gs<-(unlist(GSlist)*unlist(Ylist))[unlist(Ylist)!=0]
 gsite<-rep(c(1:nsites)[rowSums(ymat)>0],rowSums(ymat)[rowSums(ymat)>0])
 
-M <- 400                        # Size of augmented data set is M
+M <- 5000                      # Size of augmented data set is M
 nz <- M-length(dclass)              # Number of "pseudo-groups" added
 y <- c(rep(1,length(dclass)),rep(0,nz))      # Indicator of capture (== 1 for all obs. groups)
 ngroup <- length(dclass)             # Number of observed groups
